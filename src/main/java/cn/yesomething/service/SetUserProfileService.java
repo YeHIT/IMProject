@@ -1,2 +1,4 @@
-package cn.yesomething.service;public class SetUserProfileService {
+package cn.yesomething.service;
+
+public class SetUserProfileService {
 }

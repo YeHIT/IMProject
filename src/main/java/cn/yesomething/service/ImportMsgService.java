@@ -1,2 +1,4 @@
-package cn.yesomething.service;public class ImportMsgService {
+package cn.yesomething.service;
+
+public class ImportMsgService {
 }

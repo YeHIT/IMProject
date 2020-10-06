@@ -1,2 +1,4 @@
-package cn.yesomething.service;public class DeleteFriendService {
+package cn.yesomething.service;
+
+public class DeleteFriendService {
 }

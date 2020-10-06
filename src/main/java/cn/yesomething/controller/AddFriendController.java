@@ -1,2 +1,5 @@
-package cn.yesomething.controller;public class AddFriendController {
+package cn.yesomething.controller;
+
+public class AddFriendController {
+
 }

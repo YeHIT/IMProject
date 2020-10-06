@@ -1,2 +1,4 @@
-package cn.yesomething.service;public class AddFriendService {
+package cn.yesomething.service;
+
+public class AddFriendService {
 }

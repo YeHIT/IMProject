@@ -1,2 +1,4 @@
-package cn.yesomething.controller;public class ImportMsgController {
+package cn.yesomething.controller;
+
+public class ImportMsgController {
 }

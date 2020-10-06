@@ -1,2 +1,4 @@
-package cn.yesomething.controller;public class SendMsgController {
+package cn.yesomething.controller;
+
+public class SendMsgController {
 }

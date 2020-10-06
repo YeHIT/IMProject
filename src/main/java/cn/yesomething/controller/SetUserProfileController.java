@@ -1,2 +1,4 @@
-package cn.yesomething.controller;public class SetUserProfileController {
+package cn.yesomething.controller;
+
+public class SetUserProfileController {
 }

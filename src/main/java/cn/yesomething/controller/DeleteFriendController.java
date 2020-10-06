@@ -1,2 +1,4 @@
-package cn.yesomething.controller;public class DeleteFriendController {
+package cn.yesomething.controller;
+
+public class DeleteFriendController {
 }
