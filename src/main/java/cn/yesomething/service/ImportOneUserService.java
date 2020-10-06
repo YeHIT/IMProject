@@ -1,13 +1,12 @@
 package cn.yesomething.service;
 
-import cn.yesomething.controller.UserSigController;
 import cn.yesomething.domain.LinkedJsonObject;
+import cn.yesomething.utils.UserSigUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.HashMap;
 
 @Service
@@ -18,9 +17,6 @@ public class ImportOneUserService {
 
     @Value("{IMProject.identifier}")
     private String identifier;
-
-    @Resource
-    private UserSigController userSigController;
 
     private String userSig ;
 
@@ -36,7 +32,7 @@ public class ImportOneUserService {
 
 
     public String importOneUser(String userId,String nickName) {
-        this.userSig = userSigController.getUserSig(this.identifier);
+        this.userSig = UserSigUtil.generateUserSig(this.identifier);
 //        randomNumber = xxxx;
         this.url = "https://console.tim.qq.com/v4/im_open_login_svc/account_import?";
 

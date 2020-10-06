@@ -1,10 +1,9 @@
 package cn.yesomething.service;
 
-import cn.yesomething.controller.UserSigController;
+import cn.yesomething.utils.UserSigUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.HashMap;
 //import java.util.Random;    //导入随机数
 
@@ -15,8 +14,6 @@ public class IsLogInService {
     private long sdkAppId;
     @Value("{IMProject.identifier}")
     private String identifier;
-    @Resource
-    private UserSigController userSigController;
     private String userSig ;
 
     private final long RANGE = 4294967296L;  //范围在[0,4294967295]
@@ -29,7 +26,7 @@ public class IsLogInService {
         return this.isLogInService(userID,0);
     }
     public String isLogInService(String [] userID,int isNeedDetail){
-        this.userSig = userSigController.getUserSig(this.identifier);
+        this.userSig = UserSigUtil.generateUserSig(this.identifier);
         this.randomNumber = (int)(Math.random() * RANGE);
         // url样式
         // https://console.tim.qq.com/v4/im_open_login_svc/account_check?sdkappid=88888888&identifier=admin&usersig=xxx&random=99999999&contenttype=json

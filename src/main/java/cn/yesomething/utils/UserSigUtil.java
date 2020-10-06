@@ -1,22 +1,19 @@
-package cn.yesomething.service;
+package cn.yesomething.utils;
 
-import cn.yesomething.utils.TLSSigAPIv2;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
-@Service
-public class UserSigService {
+public class UserSigUtil {
 
     @Value("${IMProject.SDKAppID}")
-    private long sdkAppId;
+    private static long sdkAppId;
 
     @Value("${IMProject.secretKey}")
-    private String secretKey;
+    private static String secretKey;
 
     //到期时间设为7天
-    private long expire = 60*60*24*7;
+    private static long expire = 60*60*24*7;
 
-    public String generateUserSig(String userId){
+    public static String generateUserSig(String userId){
         System.out.println("111111111111111---"+sdkAppId);
         System.out.println("111111111111111---"+secretKey);
         TLSSigAPIv2 apIv2 = new TLSSigAPIv2(sdkAppId,secretKey);
