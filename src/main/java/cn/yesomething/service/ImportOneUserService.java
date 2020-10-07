@@ -1,7 +1,6 @@
 package cn.yesomething.service;
 
-import cn.yesomething.utils.MyImProjectLogger;
-import cn.yesomething.utils.MyServerToIMServerSender;
+import cn.yesomething.domain.UrlGenerator;
 import cn.yesomething.utils.UserSigUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,13 +18,12 @@ public class ImportOneUserService {
     @Value("${IMProject.identifier}")
     private String identifier;
 
-    private String userSig ;
+    private String userSig;
 
-    private long randomNumber;
 
     private String url;
 
-    private HashMap<String,String> requestMap = new HashMap();
+    private HashMap<String,String> requestMap;
 
     public String importOneUser(String userId){
         return this.importOneUser(userId,null);
@@ -34,34 +32,24 @@ public class ImportOneUserService {
 
     public String importOneUser(String userId,String nickName) {
         this.userSig = UserSigUtil.generateUserSig(this.identifier);
-//        randomNumber = xxxx;
-        this.url = "https://console.tim.qq.com/v4/im_open_login_svc/account_import?sdkappid=" +
-                this.sdkAppId + "&identifier=" + this.identifier + "&usersig=" +
-                this.userSig + "&random=99999999&contenttype=json";
-
-        this.requestMap.put("Identifier",userId);
+        this.url = UrlGenerator.generateUrl("v4/im_open_login_svc/account_import", this.sdkAppId, this.userSig);
+        return null;
+        this.requestMap.put("Identifier",this.identifier);
         if(nickName != null){
             this.requestMap.put("Nick",nickName);
         }
 
-        try {
-            MyImProjectLogger.LOGGER.info(MyServerToIMServerSender.sendPost(url,requestMap));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        //装载配置好的url及请求包的对象
+        LinkedJsonObject linkedJsonObject = new LinkedJsonObject(this.url,this.requestMap);
 
         //Json格式转换Mapper
         ObjectMapper objectMapper = new ObjectMapper();
         String linkedJsonObjectJson = null;
         try {
-           linkedJsonObjectJson = objectMapper.writeValueAsString(requestMap);
+            linkedJsonObjectJson = objectMapper.writeValueAsString(linkedJsonObject);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        finally {
-            MyImProjectLogger.LOGGER.debug(linkedJsonObjectJson);
-            return linkedJsonObjectJson;
-        }
+        return linkedJsonObjectJson;
     }
 }
