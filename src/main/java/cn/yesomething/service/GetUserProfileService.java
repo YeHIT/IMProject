@@ -3,7 +3,9 @@ package cn.yesomething.service;
 import cn.yesomething.domain.UrlGenerator;
 import cn.yesomething.utils.UserSigUtil;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
+@Service
 public class GetUserProfileService {
     @Value("${IMProject.SDKAppID}")
     private long sdkAppId;

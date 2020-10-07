@@ -1,6 +1,8 @@
 package cn.yesomething.service;
 
 import cn.yesomething.domain.UrlGenerator;
+import cn.yesomething.utils.MyImProjectLogger;
+import cn.yesomething.utils.MyServerToIMServerSender;
 import cn.yesomething.utils.UserSigUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,12 +20,12 @@ public class ImportOneUserService {
     @Value("${IMProject.identifier}")
     private String identifier;
 
-    private String userSig;
+    private String userSig ;
 
 
     private String url;
 
-    private HashMap<String,String> requestMap;
+    private HashMap<String,String> requestMap = new HashMap();
 
     public String importOneUser(String userId){
         return this.importOneUser(userId,null);
@@ -33,23 +35,29 @@ public class ImportOneUserService {
     public String importOneUser(String userId,String nickName) {
         this.userSig = UserSigUtil.generateUserSig(this.identifier);
         this.url = UrlGenerator.generateUrl("v4/im_open_login_svc/account_import", this.sdkAppId, this.userSig);
-        return null;
+
         this.requestMap.put("Identifier",this.identifier);
         if(nickName != null){
             this.requestMap.put("Nick",nickName);
         }
+        try {
+            MyImProjectLogger.LOGGER.info(MyServerToIMServerSender.sendPost(this.url,this.requestMap));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        //装载配置好的url及请求包的对象
-        LinkedJsonObject linkedJsonObject = new LinkedJsonObject(this.url,this.requestMap);
 
         //Json格式转换Mapper
         ObjectMapper objectMapper = new ObjectMapper();
         String linkedJsonObjectJson = null;
         try {
-            linkedJsonObjectJson = objectMapper.writeValueAsString(linkedJsonObject);
+           linkedJsonObjectJson = objectMapper.writeValueAsString(requestMap);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        return linkedJsonObjectJson;
+        finally {
+            MyImProjectLogger.LOGGER.debug(linkedJsonObjectJson);
+            return linkedJsonObjectJson;
+        }
     }
 }

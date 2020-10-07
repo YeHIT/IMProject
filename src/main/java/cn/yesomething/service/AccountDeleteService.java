@@ -16,12 +16,15 @@ public class AccountDeleteService {
     @Value("${IMProject.identifier}")
     private String identifier;
 
-    private String userSig;
-
-
+    private String userSig ;
     private String url;
 
-    public String accountDelete(String[] userId) {
+    private HashMap<String,String> requestMap;
+
+    public AccountDeleteService() {
+    }
+
+    public String accountDelete(String [] userId){
         this.userSig = UserSigUtil.generateUserSig(this.identifier);
         this.url = UrlGenerator.generateUrl("v4/im_open_login_svc/account_delete", this.sdkAppId, this.userSig);
         return null;
