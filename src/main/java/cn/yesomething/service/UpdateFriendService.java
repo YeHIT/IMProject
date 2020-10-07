@@ -9,10 +9,10 @@ public class UpdateFriendService {
     private long sdkAppId;
     @Value("${IMProject.identifier}")
     private String identifier;
-    private String userSig ;
 
-    private final long RANGE = 4294967296L;  //范围在[0,4294967295]
-    private long randomNumber;
+    private String userSig;
+
+
     private String url;
 //    public String updateFriend();
 }

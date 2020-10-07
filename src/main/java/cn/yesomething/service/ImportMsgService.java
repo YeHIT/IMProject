@@ -2,6 +2,7 @@ package cn.yesomething.service;
 
 import cn.yesomething.domain.MsgBody;//消息结构体（暂定），类定义文件暂时放在domain文件夹下
 
+import cn.yesomething.domain.UrlGenerator;
 import cn.yesomething.utils.UserSigUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -12,23 +13,16 @@ public class ImportMsgService {
     private long sdkAppId;
     @Value("${IMProject.identifier}")
     private String identifier;
-    private String userSig ;
 
-    private final long RANGE = 4294967296L;  //范围在[0,4294967295]
-    private long randomNumber;
+    private String userSig;
+
+
     private String url;
     public String importMsg(int SyncFromOldSystem, String From_Account, String To_Account, int MsgRandom,
                             int MsgTimeStamp, MsgBody [] Msg){
         //----------------------拼接url部分-------------------------------
         this.userSig = UserSigUtil.generateUserSig(this.identifier);
-        this.randomNumber = (int) (Math.random() * this.RANGE);
-        this.url = "https://console.tim.qq.com/v4/openim/importmsg?sdkappid="
-                + Long.toString(this.sdkAppId)
-                + "&identifier=admin&usersig="
-                + this.userSig
-                + "&random="
-                + Long.toString(this.randomNumber)
-                + "&contenttype=json";
+        this.url = UrlGenerator.generateUrl("v4/openim/importmsg", this.sdkAppId, this.userSig);
         //----------------------拼接json部分------------------------------
         return null;
         //----------------------拼接结束----------------------------------
