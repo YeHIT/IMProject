@@ -14,7 +14,7 @@ public class AccountDeleteService {
     @Value("${IMProject.SDKAppID}")
     private long sdkAppId;
 
-    @Value("{IMProject.identifier}")
+    @Value("${IMProject.identifier}")
     private String identifier;
 
     private String userSig ;
