@@ -1,4 +1,4 @@
-package cn.yesomething.domain;
+package cn.yesomething.utils;
 
 public class UrlGenerator {
     private static final long RANGE = 4294967296L;  //范围在[0,4294967295]

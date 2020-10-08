@@ -1,6 +1,6 @@
 package cn.yesomething.service;
 
-import cn.yesomething.domain.UrlGenerator;
+import cn.yesomething.utils.UrlGenerator;
 import cn.yesomething.utils.MyImProjectLogger;
 import cn.yesomething.utils.MyServerToIMServerSender;
 import cn.yesomething.utils.UserSigUtil;
