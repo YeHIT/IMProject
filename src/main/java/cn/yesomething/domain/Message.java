@@ -18,9 +18,8 @@ public class Message {
     public Message() {
     }
 
-    public Message(Integer messageId, Integer fromId, Integer toId,
-                   Date messageTime, String messageContent, Integer messageContenttype) {
-        this.messageId = messageId;
+    public Message(Integer fromId, Integer toId, Date messageTime,
+                   String messageContent, Integer messageContenttype) {
         this.fromId = fromId;
         this.toId = toId;
         this.messageTime = messageTime;

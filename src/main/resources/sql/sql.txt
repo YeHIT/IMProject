@@ -4,7 +4,7 @@ CREATE SCHEMA `improject` DEFAULT CHARACTER SET utf8 ;
 
 #创建用户表
 CREATE TABLE `improject`.`user` (
-  `user_id` INT NOT NULL,
+  `user_id` INT NOT NULL auto_increment,
   `user_name` VARCHAR(45) NOT NULL,
   `user_password` VARCHAR(45) NOT NULL,
   `user_sex` INT NULL DEFAULT 0,
@@ -19,7 +19,7 @@ DEFAULT CHARACTER SET = utf8;
 
 #创建消息表
 CREATE TABLE `improject`.`message` (
-  `message_id` INT NOT NULL,
+  `message_id` INT NOT NULL auto_increment,
   `from_id` INT NULL,
   `to_id` INT NULL,
   `message_time` DATETIME NULL,
@@ -33,7 +33,7 @@ DEFAULT CHARACTER SET = utf8;
 
 #创建朋友表
 CREATE TABLE `improject`.`friends` (
-  `friends_id` INT NOT NULL,
+  `friends_id` INT NOT NULL auto_increment,
   `friend_id` INT NULL,
   `user_id` INT NULL,
   `friend_name` VARCHAR(45) NULL,

@@ -13,7 +13,7 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-config.xml"})
-public class MBGTest {
+public class TestMBG {
     @Test
     public void createMGB() throws Exception{
         List<String> warnings = new ArrayList<String>();

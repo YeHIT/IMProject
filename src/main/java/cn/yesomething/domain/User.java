@@ -20,9 +20,8 @@ public class User {
     public User() {
     }
 
-    public User(Integer userId, String userName, String userPassword,
-                Integer userSex, String userNickname, Date userBirthday, String userPicture) {
-        this.userId = userId;
+    public User(String userName, String userPassword, Integer userSex,
+                String userNickname, Date userBirthday, String userPicture) {
         this.userName = userName;
         this.userPassword = userPassword;
         this.userSex = userSex;

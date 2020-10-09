@@ -8,8 +8,8 @@
     <properties resource="application.properties"></properties>
 
 
-    <context id="MysqlDatabase" targetRuntime="MyBatis3">
-        <!-- 注释生成 -->
+    <context id="MysqlDatabase" targetRuntime="MyBatis3Simple" >
+        <!-- 取消注释生成 -->
         <commentGenerator>
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>

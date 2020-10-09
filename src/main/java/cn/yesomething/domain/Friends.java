@@ -16,9 +16,8 @@ public class Friends {
     public Friends() {
     }
 
-    public Friends(Integer friendsId, Integer friendId, Integer userId,
-                   String friendName, Integer friendType, Integer friendGroupType) {
-        this.friendsId = friendsId;
+    public Friends(Integer friendId, Integer userId, String friendName,
+                   Integer friendType, Integer friendGroupType) {
         this.friendId = friendId;
         this.userId = userId;
         this.friendName = friendName;
