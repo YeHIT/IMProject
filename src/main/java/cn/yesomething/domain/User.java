@@ -3,93 +3,100 @@ package cn.yesomething.domain;
 import java.util.Date;
 
 public class User {
-    Integer user_id;
-    String user_name;
-    String user_password;
-    Integer user_sex;
-    String uesr_nickname;
-    Date user_birthday;
-    String user_picture;
+    private Integer userId;
+
+    private String userName;
+
+    private String userPassword;
+
+    private Integer userSex;
+
+    private String userNickname;
+
+    private Date userBirthday;
+
+    private String userPicture;
 
     public User() {
     }
 
-    public User(Integer user_id, String user_name, String user_password, Integer user_sex, String uesr_nickname, Date user_birthday, String user_picture) {
-        this.user_id = user_id;
-        this.user_name = user_name;
-        this.user_password = user_password;
-        this.user_sex = user_sex;
-        this.uesr_nickname = uesr_nickname;
-        this.user_birthday = user_birthday;
-        this.user_picture = user_picture;
-    }
-
-    public Integer getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
-    }
-
-    public String getUser_name() {
-        return user_name;
-    }
-
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
-    }
-
-    public String getUser_password() {
-        return user_password;
-    }
-
-    public void setUser_password(String user_password) {
-        this.user_password = user_password;
-    }
-
-    public Integer getUser_sex() {
-        return user_sex;
-    }
-
-    public void setUser_sex(Integer user_sex) {
-        this.user_sex = user_sex;
-    }
-
-    public String getUesr_nickname() {
-        return uesr_nickname;
-    }
-
-    public void setUesr_nickname(String uesr_nickname) {
-        this.uesr_nickname = uesr_nickname;
-    }
-
-    public Date getUser_birthday() {
-        return user_birthday;
-    }
-
-    public void setUser_birthday(Date user_birthday) {
-        this.user_birthday = user_birthday;
-    }
-
-    public String getUser_picture() {
-        return user_picture;
-    }
-
-    public void setUser_picture(String user_picture) {
-        this.user_picture = user_picture;
+    public User(Integer userId, String userName, String userPassword,
+                Integer userSex, String userNickname, Date userBirthday, String userPicture) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userPassword = userPassword;
+        this.userSex = userSex;
+        this.userNickname = userNickname;
+        this.userBirthday = userBirthday;
+        this.userPicture = userPicture;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "user_id=" + user_id +
-                ", user_name='" + user_name + '\'' +
-                ", user_password='" + user_password + '\'' +
-                ", user_sex=" + user_sex +
-                ", uesr_nickname='" + uesr_nickname + '\'' +
-                ", user_birthday=" + user_birthday +
-                ", user_picture='" + user_picture + '\'' +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", userSex=" + userSex +
+                ", userNickname='" + userNickname + '\'' +
+                ", userBirthday=" + userBirthday +
+                ", userPicture='" + userPicture + '\'' +
                 '}';
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword == null ? null : userPassword.trim();
+    }
+
+    public Integer getUserSex() {
+        return userSex;
+    }
+
+    public void setUserSex(Integer userSex) {
+        this.userSex = userSex;
+    }
+
+    public String getUserNickname() {
+        return userNickname;
+    }
+
+    public void setUserNickname(String userNickname) {
+        this.userNickname = userNickname == null ? null : userNickname.trim();
+    }
+
+    public Date getUserBirthday() {
+        return userBirthday;
+    }
+
+    public void setUserBirthday(Date userBirthday) {
+        this.userBirthday = userBirthday;
+    }
+
+    public String getUserPicture() {
+        return userPicture;
+    }
+
+    public void setUserPicture(String userPicture) {
+        this.userPicture = userPicture == null ? null : userPicture.trim();
     }
 }
