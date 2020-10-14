@@ -20,6 +20,11 @@ public class User {
     public User() {
     }
 
+    public User(String userName, String userPassword) {
+        this.userName = userName;
+        this.userPassword = userPassword;
+    }
+
     public User(String userName, String userPassword, Integer userSex,
                 String userNickname, Date userBirthday, String userPicture) {
         this.userName = userName;
