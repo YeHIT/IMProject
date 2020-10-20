@@ -1,8 +1,9 @@
 package cn.yesomething.controller;
 
+import cn.yesomething.domain.User;
 import cn.yesomething.service.GeneralServiceImpl;
 import cn.yesomething.utils.JsonObjectValueGetter;
-import org.json.JSONObject;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,12 +17,20 @@ public class GeneralController {
     @Resource
     GeneralServiceImpl generalService;
 
-    @RequestMapping("/generate_usersig")
     @ResponseBody
-    public String generateUserSig(@RequestBody String jsonStr) {
-        System.out.println(jsonStr);
-        String userId = JsonObjectValueGetter.getJsonValue(jsonStr,"userName");
-        System.out.println(generalService.generateUserSig(userId));
-        return generalService.generateUserSig(userId);
+    @RequestMapping("generate_user_sig")
+    public String generateUserSig(@RequestBody User user) {
+        String userName = user.getUserName();
+        String userSig = generalService.generateUserSig(userName);
+        //创建json对象
+        ObjectNode objectNode = null;
+        if(userSig != null){
+            objectNode = JsonObjectValueGetter.getJsonObjectNode(200);
+        }
+        else{
+            objectNode = JsonObjectValueGetter.getJsonObjectNode(500,"服务器异常");
+        }
+        objectNode.put("userSig",userSig);
+        return objectNode.toString();
     }
 }

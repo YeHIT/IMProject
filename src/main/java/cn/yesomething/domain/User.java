@@ -61,7 +61,7 @@ public class User {
     }
 
     public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
+        this.userName = userName;
     }
 
     public String getUserPassword() {
@@ -69,7 +69,7 @@ public class User {
     }
 
     public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword == null ? null : userPassword.trim();
+        this.userPassword = userPassword;
     }
 
     public Integer getUserSex() {
@@ -85,7 +85,7 @@ public class User {
     }
 
     public void setUserNickname(String userNickname) {
-        this.userNickname = userNickname == null ? null : userNickname.trim();
+        this.userNickname = userNickname;
     }
 
     public Date getUserBirthday() {
@@ -101,6 +101,6 @@ public class User {
     }
 
     public void setUserPicture(String userPicture) {
-        this.userPicture = userPicture == null ? null : userPicture.trim();
+        this.userPicture = userPicture;
     }
 }

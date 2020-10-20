@@ -5,37 +5,36 @@ import java.util.Date;
 public class Message {
     private Integer messageId;
 
-    private Integer fromId;
+    private String fromId;
 
-    private Integer toId;
+    private String toId;
 
     private Date messageTime;
 
     private String messageContent;
 
-    private Integer messageContenttype;
+    private Integer messageContentType;
 
     public Message() {
     }
 
-    public Message(Integer fromId, Integer toId, Date messageTime,
-                   String messageContent, Integer messageContenttype) {
+    public Message(String fromId, String toId, Date messageTime, String messageContent, Integer messageContentType) {
         this.fromId = fromId;
         this.toId = toId;
         this.messageTime = messageTime;
         this.messageContent = messageContent;
-        this.messageContenttype = messageContenttype;
+        this.messageContentType = messageContentType;
     }
 
     @Override
     public String toString() {
         return "Message{" +
                 "messageId=" + messageId +
-                ", fromId=" + fromId +
-                ", toId=" + toId +
+                ", fromId='" + fromId + '\'' +
+                ", toId='" + toId + '\'' +
                 ", messageTime=" + messageTime +
                 ", messageContent='" + messageContent + '\'' +
-                ", messageContenttype=" + messageContenttype +
+                ", messageContentType=" + messageContentType +
                 '}';
     }
 
@@ -47,19 +46,19 @@ public class Message {
         this.messageId = messageId;
     }
 
-    public Integer getFromId() {
+    public String getFromId() {
         return fromId;
     }
 
-    public void setFromId(Integer fromId) {
+    public void setFromId(String fromId) {
         this.fromId = fromId;
     }
 
-    public Integer getToId() {
+    public String getToId() {
         return toId;
     }
 
-    public void setToId(Integer toId) {
+    public void setToId(String toId) {
         this.toId = toId;
     }
 
@@ -76,14 +75,14 @@ public class Message {
     }
 
     public void setMessageContent(String messageContent) {
-        this.messageContent = messageContent == null ? null : messageContent.trim();
+        this.messageContent = messageContent;
     }
 
-    public Integer getMessageContenttype() {
-        return messageContenttype;
+    public Integer getMessageContentType() {
+        return messageContentType;
     }
 
-    public void setMessageContenttype(Integer messageContenttype) {
-        this.messageContenttype = messageContenttype;
+    public void setMessageContentType(Integer messageContentType) {
+        this.messageContentType = messageContentType;
     }
 }

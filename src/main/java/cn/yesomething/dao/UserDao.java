@@ -7,25 +7,19 @@ import java.util.List;
 
 @Repository
 public interface UserDao {
-    int deleteByPrimaryKey(Integer userId);
 
     int deleteByUserName(String userName);
 
-    int insert(User user);
-
     int insertSelective(User user);
 
-    User selectByPrimaryKey(Integer userId);
-
-    String selectPasswordByUserName(String userName);
+    int updateByUserNameSelective(User user);
 
     User selectByUserName(String userName);
+
+    String selectPasswordByUserName(String userName);
 
     List<User> selectByUserNickname(String userNickname);
 
     List<User> selectAll();
 
-    int updateByPrimaryKey(User user);
-
-    int updateByUserNameSelective(User user);
 }

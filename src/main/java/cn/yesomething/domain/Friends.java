@@ -3,21 +3,20 @@ package cn.yesomething.domain;
 public class Friends {
     private Integer friendsId;
 
-    private Integer friendId;
+    private String friendId;
 
-    private Integer userId;
+    private String userId;
 
     private String friendName;
 
-    private Integer friendType;
+    private String friendType;
 
-    private Integer friendGroupType;
+    private String friendGroupType;
 
     public Friends() {
     }
 
-    public Friends(Integer friendId, Integer userId, String friendName,
-                   Integer friendType, Integer friendGroupType) {
+    public Friends(String friendId, String userId, String friendName, String friendType, String friendGroupType) {
         this.friendId = friendId;
         this.userId = userId;
         this.friendName = friendName;
@@ -29,8 +28,8 @@ public class Friends {
     public String toString() {
         return "Friends{" +
                 "friendsId=" + friendsId +
-                ", friendId=" + friendId +
-                ", userId=" + userId +
+                ", friendId='" + friendId + '\'' +
+                ", userId='" + userId + '\'' +
                 ", friendName='" + friendName + '\'' +
                 ", friendType=" + friendType +
                 ", friendGroupType=" + friendGroupType +
@@ -45,19 +44,19 @@ public class Friends {
         this.friendsId = friendsId;
     }
 
-    public Integer getFriendId() {
+    public String getFriendId() {
         return friendId;
     }
 
-    public void setFriendId(Integer friendId) {
+    public void setFriendId(String friendId) {
         this.friendId = friendId;
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -66,22 +65,22 @@ public class Friends {
     }
 
     public void setFriendName(String friendName) {
-        this.friendName = friendName == null ? null : friendName.trim();
+        this.friendName = friendName;
     }
 
-    public Integer getFriendType() {
+    public String getFriendType() {
         return friendType;
     }
 
-    public void setFriendType(Integer friendType) {
+    public void setFriendType(String friendType) {
         this.friendType = friendType;
     }
 
-    public Integer getFriendGroupType() {
+    public String getFriendGroupType() {
         return friendGroupType;
     }
 
-    public void setFriendGroupType(Integer friendGroupType) {
+    public void setFriendGroupType(String friendGroupType) {
         this.friendGroupType = friendGroupType;
     }
 }

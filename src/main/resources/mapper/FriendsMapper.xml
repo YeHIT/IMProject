@@ -1,42 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.yesomething.dao.FriendsDao">
+  <!-- 动态sql -->
+  <sql id="insertKeySql">
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="friendId != null and friendId != ''">
+        friend_id,
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id,
+      </if>
+      <if test="friendName != null and friendName != ''">
+        friend_name,
+      </if>
+      <if test="friendType != null and friendType != ''">
+        friend_type,
+      </if>
+      <if test="friendGroupType != null and friendGroupType != ''">
+        friend_group_type,
+      </if>
+    </trim>
+  </sql>
+  <sql id="insertValuesSql">
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="friendId != null and friendId != ''">
+        #{friendId},
+      </if>
+      <if test="userId != null and userId != ''">
+        #{userId},
+      </if>
+      <if test="friendName != null and friendName != ''">
+        #{friendName},
+      </if>
+      <if test="friendType != null and friendType != ''">
+        #{friendType},
+      </if>
+      <if test="friendGroupType != null and friendGroupType != ''">
+        #{friendGroupType},
+      </if>
+    </trim>
+  </sql>
+  <sql id="updateSql">
+    <trim suffixOverrides=",">
+      <if test="friendName != null and friendName != ''">
+        friend_name = #{friendName,jdbcType=VARCHAR},
+      </if>
+      <if test="friendType != null and friendType != ''">
+        friend_type = #{friendType,jdbcType=VARCHAR},
+      </if>
+      <if test="friendGroupType != null and friendGroupType != ''">
+        friend_group_type = #{friendGroupType,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </sql>
+  <!-- 动态sql -->
   <resultMap id="BaseResultMap" type="cn.yesomething.domain.Friends">
     <id column="friends_id" jdbcType="INTEGER" property="friendsId" />
-    <result column="friend_id" jdbcType="INTEGER" property="friendId" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="friend_id" jdbcType="VARCHAR" property="friendId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="friend_name" jdbcType="VARCHAR" property="friendName" />
-    <result column="friend_type" jdbcType="INTEGER" property="friendType" />
-    <result column="friend_group_type" jdbcType="INTEGER" property="friendGroupType" />
+    <result column="friend_type" jdbcType="VARCHAR" property="friendType" />
+    <result column="friend_group_type" jdbcType="VARCHAR" property="friendGroupType" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from friends
-    where friends_id = #{friendsId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="cn.yesomething.domain.Friends">
-    insert into friends (friends_id, friend_id, user_id, 
-      friend_name, friend_type, friend_group_type
-      )
-    values (#{friendsId,jdbcType=INTEGER}, #{friendId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
-      #{friendName,jdbcType=VARCHAR}, #{friendType,jdbcType=INTEGER}, #{friendGroupType,jdbcType=INTEGER}
-      )
+
+  <!-- 添加好友关系 -->
+  <insert id="insertFriends" parameterType="cn.yesomething.domain.Friends">
+    insert into friends <include refid="insertKeySql"/>
+    values <include refid="insertValuesSql"/>
   </insert>
-  <update id="updateByPrimaryKey" parameterType="cn.yesomething.domain.Friends">
+
+  <!-- 按好友双方更新好友信息 -->
+  <update id="updateByEachOther" parameterType="cn.yesomething.domain.Friends">
     update friends
-    set friend_id = #{friendId,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=INTEGER},
-      friend_name = #{friendName,jdbcType=VARCHAR},
-      friend_type = #{friendType,jdbcType=INTEGER},
-      friend_group_type = #{friendGroupType,jdbcType=INTEGER}
-    where friends_id = #{friendsId,jdbcType=INTEGER}
+    set <include refid="updateSql"/>
+    where friend_id = #{friendId,jdbcType=VARCHAR}
+    and user_id = #{userId,jdbcType=VARCHAR}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <!-- 查询二者间好友信息 -->
+  <select id="selectByEachOther" parameterType="cn.yesomething.domain.Friends" resultMap="BaseResultMap">
     select friends_id, friend_id, user_id, friend_name, friend_type, friend_group_type
     from friends
-    where friends_id = #{friendsId,jdbcType=INTEGER}
+    where friend_id = #{friendId,jdbcType=VARCHAR}
+    and user_id = #{userId,jdbcType=VARCHAR}
   </select>
+  <!-- 查询一个人的全部好友信息 -->
+  <select id="selectFriendsListByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select friends_id, friend_id, user_id, friend_name, friend_type, friend_group_type
+    from friends
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <!-- 全表通查 -->
   <select id="selectAll" resultMap="BaseResultMap">
     select friends_id, friend_id, user_id, friend_name, friend_type, friend_group_type
     from friends
   </select>
+
+
+
+
+
 </mapper>
