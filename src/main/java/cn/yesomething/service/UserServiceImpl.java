@@ -21,7 +21,8 @@ public class UserServiceImpl implements UserService{
     public int userRegister(User user) {
         User resultUser = userDao.selectByUserName(user.getUserName());
         //用户名密码不能为空
-        if(user.getUserName() == null || user.getUserPassword() == null){
+        if(user.getUserName() == null || user.getUserName().equals("")
+                ||  user.getUserPassword() == null || user.getUserPassword().equals("")){
             return 3;
         }
         //存在该用户
