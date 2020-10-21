@@ -14,25 +14,25 @@ public class TestFriendsController {
     FriendsController friendsController;
 
     @Test
-    public void addFriends(){
+    public void testAddFriends(){
         Friends friends = new Friends("xy","xyz","heihei",null,null);
         System.out.println(friendsController.addFriends(friends));
     }
 
     @Test
-    public void updateFriends(){
+    public void testUpdateFriends(){
         Friends friends = new Friends("xy","xyz","heihei",null,null);
         System.out.println(friendsController.updateFriends(friends));
     }
 
     @Test
-    public void selectFriends(){
+    public void testSelectFriends(){
         Friends friends = new Friends("xy","xyz","heihei",null,null);
         System.out.println(friendsController.selectFriends(friends));
     }
 
     @Test
-    public void selectFriendsList(){
+    public void testSelectFriendsList(){
         Friends friends = new Friends("xy","xyz","heihei",null,null);
         System.out.println(friendsController.selectFriendsList(friends));
     }

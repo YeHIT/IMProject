@@ -14,25 +14,25 @@ public class TestFriendsDao {
     FriendsDao friendsDao;
 
     @Test
-    public void insertFriends(){
+    public void testInsertFriends(){
         Friends friends = new Friends("xy","xyz","heihei",null,null);
         friendsDao.insertFriends(friends);
     }
 
     @Test
-    public void updateByEachOther(){
+    public void testUpdateByEachOther(){
         Friends friends = new Friends("xy","xyz","heiheihei",null,null);
         friendsDao.updateByEachOther(friends);
     }
 
     @Test
-    public void selectByEachOther(){
+    public void testSelectByEachOther(){
         Friends friends = new Friends("xy","xyz","heiheihei",null,null);
         System.out.println(friendsDao.selectByEachOther(friends));
     }
 
     @Test
-    public void selectFriendsListByUserId(){
+    public void testSelectFriendsListByUserId(){
         Friends friends = new Friends("xy","xyz","heiheihei",null,null);
         System.out.println(friendsDao.selectFriendsListByUserId(friends.getUserId()));
     }
