@@ -26,11 +26,11 @@ public class GeneralController {
         ObjectNode objectNode = null;
         if(userSig != null){
             objectNode = JsonObjectValueGetter.getJsonObjectNode(200);
+            objectNode.put("userSig",userSig);
         }
         else{
             objectNode = JsonObjectValueGetter.getJsonObjectNode(500,"服务器异常");
         }
-        objectNode.put("userSig",userSig);
         return objectNode.toString();
     }
 }
