@@ -1,7 +1,6 @@
 package cn.yesomething.service;
 
 import cn.yesomething.domain.User;
-import org.springframework.dao.DataAccessException;
 
 public interface UserService {
 
@@ -31,8 +30,6 @@ public interface UserService {
      * @return 返回更新后的User对象
      */
     User userUpdate(User user);
-
-
 
     /**
      * 根据用户名查找对应的用户信息

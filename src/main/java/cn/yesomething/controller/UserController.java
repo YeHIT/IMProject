@@ -1,16 +1,10 @@
 package cn.yesomething.controller;
 
-import cn.yesomething.Exception.NoSuchUserException;
-import cn.yesomething.Exception.PasswordErrorException;
-import cn.yesomething.Exception.UserExistException;
-import cn.yesomething.Exception.UserNameIsNullException;
 import cn.yesomething.domain.User;
 import cn.yesomething.service.UserServiceImpl;
 import cn.yesomething.utils.JsonObjectValueGetter;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

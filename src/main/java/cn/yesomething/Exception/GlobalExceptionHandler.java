@@ -24,19 +24,19 @@ public class GlobalExceptionHandler {
             objectNode = JsonObjectValueGetter.getJsonObjectNode(502,"用户名密码不能为空");
         }
         else if(ex instanceof NoSuchUserException){
-            objectNode = JsonObjectValueGetter.getJsonObjectNode(501,"无此用户");
+            objectNode = JsonObjectValueGetter.getJsonObjectNode(503,"无此用户");
         }
         else if(ex instanceof PasswordErrorException){
-            objectNode = JsonObjectValueGetter.getJsonObjectNode(502,"用户名或密码错误");
-        }
-        else if(ex instanceof PictureDecodeException){
-            objectNode = JsonObjectValueGetter.getJsonObjectNode(501,"图片编码错误,请换个图片");
+            objectNode = JsonObjectValueGetter.getJsonObjectNode(504,"用户名或密码错误");
         }
         else if(ex instanceof InfoNoChangeException){
-            objectNode = JsonObjectValueGetter.getJsonObjectNode(501,"当前资料已为最新版本");
+            objectNode = JsonObjectValueGetter.getJsonObjectNode(505,"当前资料已为最新版本");
+        }
+        else if(ex instanceof PictureDecodeException){
+            objectNode = JsonObjectValueGetter.getJsonObjectNode(506,"图片编码错误,请换个图片");
         }
         else if(ex instanceof UnknownException){
-            objectNode = JsonObjectValueGetter.getJsonObjectNode(500,"未知错误请稍后再试");
+            objectNode = JsonObjectValueGetter.getJsonObjectNode(600,"未知错误请稍后再试");
         }
         return objectNode.toString();
     }

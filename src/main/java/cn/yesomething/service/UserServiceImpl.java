@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService{
 
     @Resource
     UserDao userDao;
-
+    //最大历史头像数
     public static final int MAX_PICTURES_NUMBER = 15;
 
     /**
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService{
         if(userName == null || userName.equals("") ||  userPassword == null || userPassword.equals("")){
             throw new UserNameIsNullException("用户名密码不能为空,输入用户名为:" + userName + ",密码为:" + userPassword);
         }
-        User resultUser = this.userInfoSelect(userName);
+        User resultUser = userDao.selectByUserName(userName);
         //存在该用户
         if(resultUser != null){
             throw new UserExistException(userName + "用户已存在");
