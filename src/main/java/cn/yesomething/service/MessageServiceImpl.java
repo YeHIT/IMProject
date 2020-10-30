@@ -1,10 +1,15 @@
 package cn.yesomething.service;
 
+import cn.yesomething.Exception.DateParseException;
+import cn.yesomething.Exception.NoMessageException;
 import cn.yesomething.dao.MessageDao;
 import cn.yesomething.domain.Message;
+import cn.yesomething.utils.JsonObjectValueGetter;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -24,8 +29,24 @@ public class MessageServiceImpl implements MessageService{
      */
     @Override
     public List<Message> selectMessageByTime(String fromId, String toId,
-                                             Date messageStartTime, Date messageEndTime) {
-        return messageDao.selectByStartTimeAndEndTime(fromId,toId,messageStartTime,messageEndTime);
+                                             String messageStartTime, String messageEndTime) {
+        Date messageStartDate = null;
+        Date messageEndDate = null;
+        try {
+            if(messageStartTime != null && !messageStartTime.equals("")){
+                messageStartDate = new SimpleDateFormat().parse(messageStartTime);
+            }
+            if(messageStartTime != null && !messageEndTime.equals("")){
+                messageEndDate = new SimpleDateFormat().parse(messageEndTime);
+            }
+        } catch (ParseException e) {
+            throw new DateParseException("日期处理失败");
+        }
+        List<Message> messageList = messageDao.selectByStartTimeAndEndTime(fromId,toId,messageStartDate,messageEndDate);
+        if(messageList.size() == 0){
+            throw new NoMessageException("从" + messageEndDate + "到" + messageEndTime + fromId + "和" + toId + "间无消息");
+        }
+        return messageDao.selectByStartTimeAndEndTime(fromId,toId,messageStartDate,messageEndDate);
     }
 
     /**

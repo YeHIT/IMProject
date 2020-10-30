@@ -35,6 +35,12 @@ public class GlobalExceptionHandler {
         else if(ex instanceof PictureDecodeException){
             objectNode = JsonObjectValueGetter.getJsonObjectNode(506,"图片编码错误,请换个图片");
         }
+        else if(ex instanceof NoMessageException){
+            objectNode = JsonObjectValueGetter.getJsonObjectNode(507,"当前时间段无历史消息,请换一个时间段");
+        }
+        else if(ex instanceof DateParseException){
+            objectNode = JsonObjectValueGetter.getJsonObjectNode(508,"请检查输入的日期是否正确");
+        }
         else if(ex instanceof UnknownException){
             objectNode = JsonObjectValueGetter.getJsonObjectNode(600,"未知错误请稍后再试");
         }

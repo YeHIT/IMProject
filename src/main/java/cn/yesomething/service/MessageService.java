@@ -2,7 +2,6 @@ package cn.yesomething.service;
 
 import cn.yesomething.domain.Message;
 
-import java.util.Date;
 import java.util.List;
 
 public interface MessageService {
@@ -16,8 +15,7 @@ public interface MessageService {
      * @return 在开始时间与结束时间间二者之间的消息
      */
     List<Message> selectMessageByTime(String fromId, String toId,
-                                      Date messageStartTime,Date messageEndTime);
-
+                                      String messageStartTime,String messageEndTime);
 
     /**
      * 插入消息
