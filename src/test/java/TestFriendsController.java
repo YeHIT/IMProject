@@ -21,7 +21,7 @@ public class TestFriendsController {
 
     @Test
     public void testUpdateFriends(){
-        Friends friends = new Friends("xy","xyz","heihei",null,null);
+        Friends friends = new Friends("xy1","xyz","heihei",null,null);
         System.out.println(friendsController.updateFriends(friends));
     }
 

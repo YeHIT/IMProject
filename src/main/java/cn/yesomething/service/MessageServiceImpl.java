@@ -44,7 +44,7 @@ public class MessageServiceImpl implements MessageService{
         }
         List<Message> messageList = messageDao.selectByStartTimeAndEndTime(fromId,toId,messageStartDate,messageEndDate);
         if(messageList.size() == 0){
-            throw new NoMessageException("从" + messageEndDate + "到" + messageEndTime + fromId + "和" + toId + "间无消息");
+            throw new NoMessageException("从" + messageEndDate + "到" + messageEndDate + fromId + "和" + toId + "间无消息");
         }
         return messageDao.selectByStartTimeAndEndTime(fromId,toId,messageStartDate,messageEndDate);
     }
@@ -52,10 +52,9 @@ public class MessageServiceImpl implements MessageService{
     /**
      * 插入消息
      * @param message 要插入的消息
-     * @return 插入操作是否成功
      */
     @Override
-    public int insertMessage(Message message) {
-        return messageDao.insertMessage(message);
+    public void insertMessage(Message message) {
+        messageDao.insertMessage(message);
     }
 }

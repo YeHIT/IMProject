@@ -22,16 +22,8 @@ public class FriendsController {
     @RequestMapping("friends_add")
     public String addFriends(@RequestBody Friends friends){
         ObjectNode objectNode = null;
-        int result = friendsService.addFriend(friends);
-        if(result == 0){
-            objectNode = JsonObjectValueGetter.getJsonObjectNode(500,"服务器异常");
-        }
-        else if(result == 1){
-            objectNode = JsonObjectValueGetter.getJsonObjectNode(200);
-        }
-        else{
-            objectNode = JsonObjectValueGetter.getJsonObjectNode(501,"已为好友,请勿重复添加");
-        }
+        friendsService.addFriend(friends);
+        objectNode = JsonObjectValueGetter.getJsonObjectNode(200);
         return objectNode.toString();
     }
     @ResponseBody
@@ -39,13 +31,8 @@ public class FriendsController {
     public String updateFriends(@RequestBody Friends friends){
         ObjectNode objectNode = null;
         Friends resultFriends = friendsService.updateFriend(friends);
-        if(resultFriends == null){
-            objectNode = JsonObjectValueGetter.getJsonObjectNode(500,"服务器异常");
-        }
-        else {
-            objectNode = JsonObjectValueGetter.getJsonObjectNode(200);
-            objectNode.putPOJO("friends",resultFriends);
-        }
+        objectNode = JsonObjectValueGetter.getJsonObjectNode(200);
+        objectNode.putPOJO("friends",resultFriends);
         return objectNode.toString();
     }
 
@@ -54,13 +41,8 @@ public class FriendsController {
     public String selectFriends(@RequestBody Friends friends){
         ObjectNode objectNode = null;
         Friends resultFriends = friendsService.selectByEachOther(friends);
-        if(resultFriends == null){
-            objectNode = JsonObjectValueGetter.getJsonObjectNode(501,"并非好友关系");
-        }
-        else {
-            objectNode = JsonObjectValueGetter.getJsonObjectNode(200);
-            objectNode.putPOJO("friends",resultFriends);
-        }
+        objectNode = JsonObjectValueGetter.getJsonObjectNode(200);
+        objectNode.putPOJO("friends",resultFriends);
         return objectNode.toString();
     }
 
@@ -70,13 +52,8 @@ public class FriendsController {
         ObjectNode objectNode = null;
         String userId = friends.getUserId();
         List<Friends> friendsList = friendsService.selectFriendsListByUserId(userId);
-        if(friendsList.size() == 0){
-            objectNode = JsonObjectValueGetter.getJsonObjectNode(501,"未和任何人有好友关系");
-        }
-        else {
-            objectNode = JsonObjectValueGetter.getJsonObjectNode(200);
-            objectNode.putPOJO("friendsList",friendsList);
-        }
+        objectNode = JsonObjectValueGetter.getJsonObjectNode(200);
+        objectNode.putPOJO("friendsList",friendsList);
         return objectNode.toString();
     }
 }

@@ -41,6 +41,15 @@ public class GlobalExceptionHandler {
         else if(ex instanceof DateParseException){
             objectNode = JsonObjectValueGetter.getJsonObjectNode(508,"请检查输入的日期是否正确");
         }
+        else if(ex instanceof FriendRepeatException){
+            objectNode = JsonObjectValueGetter.getJsonObjectNode(509,"已为好友,请勿重复添加");
+        }
+        else if(ex instanceof NoFriendRelationException){
+            objectNode = JsonObjectValueGetter.getJsonObjectNode(510,"并非好友关系");
+        }
+        else if(ex instanceof NoFriendListException){
+            objectNode = JsonObjectValueGetter.getJsonObjectNode(511,"未和任何人有好友关系");
+        }
         else if(ex instanceof UnknownException){
             objectNode = JsonObjectValueGetter.getJsonObjectNode(600,"未知错误请稍后再试");
         }

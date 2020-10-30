@@ -1,7 +1,12 @@
 package cn.yesomething.service;
 
+import cn.yesomething.Exception.FriendRepeatException;
+import cn.yesomething.Exception.InfoNoChangeException;
+import cn.yesomething.Exception.NoFriendListException;
+import cn.yesomething.Exception.NoFriendRelationException;
 import cn.yesomething.dao.FriendsDao;
 import cn.yesomething.domain.Friends;
+import cn.yesomething.utils.JsonObjectValueGetter;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -12,19 +17,19 @@ public class FriendsServiceImpl implements FriendsService{
 
     @Resource
     FriendsDao friendsDao;
+
     /**
      * 添加好友
      * @param friends 需要添加的好友关系
-     * @return 是否添加成功
      */
     @Override
-    public int addFriend(Friends friends) {
-        Friends resultFriends = selectByEachOther(friends);
+    public void addFriend(Friends friends) {
+        Friends resultFriends = friendsDao.selectByEachOther(friends);
         if(resultFriends == null){
-            return friendsDao.insertFriends(friends);
+            friendsDao.insertFriends(friends);
         }
         else {        //二者已经是好友了
-            return 2;
+            throw new FriendRepeatException(friends.getUserId() + "和" + friends.getFriendId() + "已为好友关系");
         }
     }
 
@@ -35,11 +40,14 @@ public class FriendsServiceImpl implements FriendsService{
      */
     @Override
     public Friends updateFriend(Friends friends) {
+        this.selectByEachOther(friends);
         int result = friendsDao.updateByEachOther(friends);
         if(result == 1){
             return friendsDao.selectByEachOther(friends);
         }
-        return null;
+        else {
+            throw new InfoNoChangeException(friends + "当前资料已为最新版本");
+        }
     }
 
     /**
@@ -49,17 +57,26 @@ public class FriendsServiceImpl implements FriendsService{
      */
     @Override
     public Friends selectByEachOther(Friends friends) {
-        return friendsDao.selectByEachOther(friends);
+        Friends resultFriends = friendsDao.selectByEachOther(friends);
+        if(resultFriends == null){
+            throw new NoFriendRelationException(friends.getUserId() + "和" + friends.getFriendId() + "不为好友关系");
+        }
+        else {
+            return resultFriends;
+        }
     }
 
     /**
      * 根据userId查询他的全部好友信息
-     *
      * @param userId 需要查询的人
      * @return 全部好友信息
      */
     @Override
     public List<Friends> selectFriendsListByUserId(String userId) {
-        return friendsDao.selectFriendsListByUserId(userId);
+        List<Friends> friendsList = friendsDao.selectFriendsListByUserId(userId);
+        if(friendsList.size() == 0){
+            throw new NoFriendListException(userId + "未和任何人是好友关系");
+        }
+        return friendsList;
     }
 }

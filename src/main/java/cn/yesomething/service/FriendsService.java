@@ -9,9 +9,8 @@ public interface FriendsService {
     /**
      * 添加好友
      * @param friends 需要添加的好友关系
-     * @return 是否添加成功
      */
-    int addFriend(Friends friends);
+    void addFriend(Friends friends);
 
     /**
      * 更新好友信息
