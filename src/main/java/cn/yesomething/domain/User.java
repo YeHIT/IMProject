@@ -1,5 +1,6 @@
 package cn.yesomething.domain;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class User {
@@ -17,6 +18,18 @@ public class User {
 
     private String userPicture;
 
+    private String[] userHistoricalPictures;
+
+    private String userEmail;
+
+    private String userPhoneNumber;
+
+    private String[] userTags;
+
+    private String bubbleType;
+
+    private String[] historicalBubbleTypes;
+
     public User() {
     }
 
@@ -25,14 +38,20 @@ public class User {
         this.userPassword = userPassword;
     }
 
-    public User(String userName, String userPassword, Integer userSex,
-                String userNickname, Date userBirthday, String userPicture) {
+    public User(Integer userId, String userName, String userPassword, Integer userSex, String userNickname, Date userBirthday, String userPicture, String[] userHistoricalPictures, String userEmail, String userPhoneNumber, String[] userTags, String bubbleType, String[] historicalBubbleTypes) {
+        this.userId = userId;
         this.userName = userName;
         this.userPassword = userPassword;
         this.userSex = userSex;
         this.userNickname = userNickname;
         this.userBirthday = userBirthday;
         this.userPicture = userPicture;
+        this.userHistoricalPictures = userHistoricalPictures;
+        this.userEmail = userEmail;
+        this.userPhoneNumber = userPhoneNumber;
+        this.userTags = userTags;
+        this.bubbleType = bubbleType;
+        this.historicalBubbleTypes = historicalBubbleTypes;
     }
 
     @Override
@@ -45,6 +64,12 @@ public class User {
                 ", userNickname='" + userNickname + '\'' +
                 ", userBirthday=" + userBirthday +
                 ", userPicture='" + userPicture + '\'' +
+                ", userHistoricalPictures=" + Arrays.toString(userHistoricalPictures) +
+                ", userEmail='" + userEmail + '\'' +
+                ", userPhoneNumber='" + userPhoneNumber + '\'' +
+                ", userTags=" + Arrays.toString(userTags) +
+                ", bubbleType='" + bubbleType + '\'' +
+                ", historicalBubbleTypes=" + Arrays.toString(historicalBubbleTypes) +
                 '}';
     }
 
@@ -102,5 +127,53 @@ public class User {
 
     public void setUserPicture(String userPicture) {
         this.userPicture = userPicture;
+    }
+
+    public String[] getUserHistoricalPictures() {
+        return userHistoricalPictures;
+    }
+
+    public void setUserHistoricalPictures(String[] userHistoricalPictures) {
+        this.userHistoricalPictures = userHistoricalPictures;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public String getUserPhoneNumber() {
+        return userPhoneNumber;
+    }
+
+    public void setUserPhoneNumber(String userPhoneNumber) {
+        this.userPhoneNumber = userPhoneNumber;
+    }
+
+    public String[] getUserTags() {
+        return userTags;
+    }
+
+    public void setUserTags(String[] userTags) {
+        this.userTags = userTags;
+    }
+
+    public String getBubbleType() {
+        return bubbleType;
+    }
+
+    public void setBubbleType(String bubbleType) {
+        this.bubbleType = bubbleType;
+    }
+
+    public String[] getHistoricalBubbleTypes() {
+        return historicalBubbleTypes;
+    }
+
+    public void setHistoricalBubbleTypes(String[] historicalBubbleTypes) {
+        this.historicalBubbleTypes = historicalBubbleTypes;
     }
 }

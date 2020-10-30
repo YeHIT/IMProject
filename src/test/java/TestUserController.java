@@ -21,8 +21,8 @@ public class TestUserController {
     }
 
     @Test
-    public void testUserLogin(){
-        User user = new User("zzz","123");
+    public void testUserLogin() {
+        User user = new User("zzz","1923");
         String result = userController.userLogin(user);
         System.out.println(result);
     }
@@ -39,5 +39,11 @@ public class TestUserController {
         User user = new User("zzz","123");
         String result = userController.userInfoSelect(user);
         System.out.println(result);
+    }
+
+    @Test
+    public void testUserPictureUpload(){
+        String pictureJson = "{\"userName\":\"denwade\",\"base64String\":\"xx\"}";
+        userController.userPictureUpload(pictureJson);
     }
 }

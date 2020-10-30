@@ -21,8 +21,13 @@ public class TestUserDao {
 
     @Test
     public void testInsertSelective(){
-        User user = new User("xyzb","123",
-                1,null,new Date(),null);
+        User user = new User();
+        user.setUserName("xyzb");
+        user.setUserPassword("123");
+        user.setUserSex(1);
+        user.setUserNickname(null);
+        user.setUserBirthday(new Date());
+        user.setUserPicture(null);
         userDao.insertSelective(user);
     }
 
@@ -33,14 +38,20 @@ public class TestUserDao {
 
     @Test
     public void testUpdateByUserNameSelective(){
-        User user = new User("xyzb","123",
-                1,"小晔",new Date(),null);
+        User user = new User();
+        user.setUserName("xyzby");
+        user.setUserPassword("123");
+        user.setUserSex(1);
+        user.setUserNickname(null);
+        user.setUserBirthday(new Date());
+        user.setUserPicture(null);
+        user.setUserHistoricalPictures(new String[]{"aaaa","bbbbb","ccccc"});
         userDao.updateByUserNameSelective(user);
     }
 
     @Test
     public void testSelectByUserName(){
-        System.out.println(userDao.selectByUserName("xyzb"));
+        System.out.println(userDao.selectByUserName("xyzby"));
     }
 
     @Test

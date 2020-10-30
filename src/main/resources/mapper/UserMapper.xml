@@ -9,68 +9,128 @@
     <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
     <result column="user_birthday" jdbcType="TIMESTAMP" property="userBirthday" />
     <result column="user_picture" jdbcType="VARCHAR" property="userPicture" />
+    <result column="user_historical_pictures" jdbcType="VARCHAR" property="userHistoricalPictures" typeHandler="cn.yesomething.utils.StringArrayTypeHandler" />
+    <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    <result column="user_phone_number" jdbcType="VARCHAR" property="userPhoneNumber" />
+    <result column="user_tags" jdbcType="VARCHAR" property="userTags" typeHandler="cn.yesomething.utils.StringArrayTypeHandler"/>
+    <result column="bubble_type" jdbcType="VARCHAR" property="bubbleType" />
+    <result column="historical_bubble_types" jdbcType="VARCHAR" property="historicalBubbleTypes" typeHandler="cn.yesomething.utils.StringArrayTypeHandler" />
   </resultMap>
   <!-- 动态sql -->
   <sql id="insertKeySql">
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userName != null and userName != ''">
+      <if test="userName != null and userName != ''.toString()">
         user_name,
       </if>
-      <if test="userPassword != null and userPassword != ''">
+      <if test="userPassword != null and userPassword != ''.toString()">
         user_password,
       </if>
       <if test="userSex != null">
         user_sex,
       </if>
-      <if test="userNickname != null and userNickname != ''">
+      <if test="userNickname != null and userNickname != ''.toString()">
         user_nickname,
       </if>
       <if test="userBirthday != null">
         user_birthday,
       </if>
-      <if test="userPicture != null and userPicture != ''">
+      <if test="userPicture != null and userPicture != ''.toString()">
         user_picture,
+      </if>
+      <if test="userHistoricalPictures != null">
+        user_historical_pictures,
+      </if>
+      <if test="userEmail != null and userEmail != ''.toString()">
+        user_email,
+      </if>
+      <if test="userPhoneNumber != null and userPhoneNumber != ''.toString()">
+        user_phone_number,
+      </if>
+      <if test="userTags != null">
+        user_tags,
+      </if>
+      <if test="bubbleType != null and bubbleType != ''.toString()">
+        bubble_type,
+      </if>
+      <if test="historicalBubbleTypes != null">
+        historical_bubble_types,
       </if>
     </trim>
   </sql>
   <sql id="insertValuesSql">
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userName != null and userName != ''">
-        #{userName},
+      <if test="userName != null and userName != ''.toString()">
+        #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="userPassword != null and userPassword != ''">
-        #{userPassword},
+      <if test="userPassword != null and userPassword != ''.toString()">
+        #{userPassword,jdbcType=VARCHAR},
       </if>
       <if test="userSex != null">
-        #{userSex},
+        #{userSex,jdbcType=INTEGER},
       </if>
-      <if test="userNickname != null and userNickname != ''">
-        #{userNickname},
+      <if test="userNickname != null and userNickname != ''.toString()">
+        #{userNickname,jdbcType=VARCHAR},
       </if>
       <if test="userBirthday != null">
-        #{userBirthday},
+        #{userBirthday,jdbcType=TIMESTAMP},
       </if>
-      <if test="userPicture != null and userPicture != ''">
-        #{userBirthday},
+      <if test="userPicture != null and userPicture != ''.toString()">
+        #{userBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="userHistoricalPictures != null">
+        #{userHistoricalPictures,jdbcType=VARCHAR,typeHandler=cn.yesomething.utils.StringArrayTypeHandler}
+      </if>
+      <if test="userEmail != null and userEmail != ''.toString()">
+        #{userEmail,jdbcType=VARCHAR}
+      </if>
+      <if test="userPhoneNumber != null and userPhoneNumber != ''.toString()">
+        #{userPhoneNumber,jdbcType=VARCHAR}
+      </if>
+      <if test="userTags != null">
+        #{userTags,jdbcType=VARCHAR,typeHandler=cn.yesomething.utils.StringArrayTypeHandler}
+      </if>
+      <if test="bubbleType != null and bubbleType != ''.toString()">
+        #{bubbleType,jdbcType=VARCHAR}
+      </if>
+      <if test="historicalBubbleTypes != null">
+        #{historicalBubbleTypes,jdbcType=VARCHAR,typeHandler=cn.yesomething.utils.StringArrayTypeHandler}
       </if>
     </trim>
   </sql>
   <sql id="updateSql">
     <trim suffixOverrides=",">
-      <if test="userPassword != null and userPassword != ''">
+      <if test="userPassword != null and userPassword != ''.toString()">
         user_password = #{userPassword,jdbcType=VARCHAR},
       </if>
       <if test="userSex != null">
         user_sex = #{userSex,jdbcType=INTEGER},
       </if>
-      <if test="userNickname != null and userNickname != ''">
+      <if test="userNickname != null and userNickname != ''.toString()">
         user_nickname = #{userNickname,jdbcType=VARCHAR},
       </if>
       <if test="userBirthday != null">
         user_birthday = #{userBirthday,jdbcType=TIMESTAMP},
       </if>
-      <if test="userPicture != null and userPicture != ''">
+      <if test="userPicture != null and userPicture != ''.toString()">
         user_picture = #{userPicture,jdbcType=VARCHAR}
+      </if>
+      <if test="userHistoricalPictures != null">
+        user_historical_pictures = #{userHistoricalPictures,jdbcType=VARCHAR,typeHandler=cn.yesomething.utils.StringArrayTypeHandler}
+      </if>
+      <if test="userEmail != null and userEmail != ''.toString()">
+        user_email = #{userEmail,jdbcType=VARCHAR}
+      </if>
+      <if test="userPhoneNumber != null and userPhoneNumber != ''.toString()">
+        user_phone_number = #{userPhoneNumber,jdbcType=VARCHAR}
+      </if>
+      <if test="userTags != null">
+        user_tags = #{userTags,jdbcType=VARCHAR,typeHandler=cn.yesomething.utils.StringArrayTypeHandler}
+      </if>
+      <if test="bubbleType != null and bubbleType != ''.toString()">
+        bubble_type = #{bubbleType,jdbcType=VARCHAR}
+      </if>
+      <if test="historicalBubbleTypes != null">
+        historical_bubble_types = #{historicalBubbleTypes,jdbcType=VARCHAR,typeHandler=cn.yesomething.utils.StringArrayTypeHandler}
       </if>
     </trim>
   </sql>
@@ -93,7 +153,8 @@
   <!-- 按用户名查询用户信息 -->
   <select id="selectByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
     select user_id, user_name, user_password, user_sex, user_nickname, user_birthday,
-           user_picture
+           user_picture,user_historical_pictures,user_email,user_phone_number,user_tags,
+           bubble_type,historical_bubble_types
     from user
     where user_name = #{userName,jdbcType=VARCHAR}
   </select>
@@ -106,14 +167,16 @@
   <!-- 按用户昵称查询用户信息 -->
   <select id="selectByUserNickname" parameterType="java.lang.String" resultMap="BaseResultMap">
     select user_id, user_name, user_password, user_sex, user_nickname, user_birthday,
-           user_picture
+           user_picture,user_historical_pictures,user_email,user_phone_number,user_tags,
+           bubble_type,historical_bubble_types
     from user
     where user_nickname = #{userNickname,jdbcType=VARCHAR}
   </select>
   <!-- 全表通查 -->
   <select id="selectAll" resultMap="BaseResultMap">
-    select user_id, user_name, user_password, user_sex, user_nickname, user_birthday, 
-    user_picture
+    select user_id, user_name, user_password, user_sex, user_nickname, user_birthday,
+           user_picture,user_historical_pictures,user_email,user_phone_number,user_tags,
+           bubble_type,historical_bubble_types
     from user
   </select>
 </mapper>
