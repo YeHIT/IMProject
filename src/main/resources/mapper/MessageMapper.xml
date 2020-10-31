@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yesomething.dao.MessageDao">
+  <!-- 动态sql -->
+  <!-- 处理开始时间与结束时间 -->
+  <sql id="StartTimeEndTimeSql">
+    <if test="messageStartTime != null">
+      and  message_time &gt;= #{messageStartTime}
+    </if>
+    <if test="messageEndTime != null">
+      and message_time &lt;= #{messageEndTime}
+    </if>
+  </sql>
+  <!-- 处理消息类型 -->
+  <sql id="MessageTypeSql">
+    <if test="messageContentType == null">
+        1
+    </if>
+    <if test="messageContentType != null">
+      #{messageContentType,jdbcType=INTEGER}
+    </if>
+  </sql>
+  <!-- 动态sql -->
+
+  <resultMap id="BaseResultMap" type="cn.yesomething.domain.Message">
+    <id column="message_id" jdbcType="INTEGER" property="messageId" />
+    <result column="from_id" jdbcType="VARCHAR" property="fromId" />
+    <result column="to_id" jdbcType="VARCHAR" property="toId" />
+    <result column="message_time" jdbcType="TIMESTAMP" property="messageTime" />
+    <result column="message_content" jdbcType="VARCHAR" property="messageContent" />
+    <result column="message_content_type" jdbcType="INTEGER" property="messageContentType" />
+  </resultMap>
+  <!-- 插入消息 -->
+  <insert id="insertMessage" parameterType="cn.yesomething.domain.Message">
+    insert into message (from_id, to_id,
+      message_time, message_content, message_content_type
+      )
+    values (#{fromId,jdbcType=INTEGER}, #{toId,jdbcType=INTEGER}, #{messageTime,jdbcType=TIMESTAMP},
+     #{messageContent,jdbcType=VARCHAR}, <include refid="MessageTypeSql"></include>
+      )
+  </insert>
+  <!-- 按起止时间查询两人间的消息 -->
+  <select id="selectByStartTimeAndEndTime" resultMap="BaseResultMap">
+    select message_id, from_id, to_id, message_time, message_content, message_content_type
+    from message
+    where ( ( from_id = #{fromId,jdbcType=VARCHAR} and to_id = #{toId,jdbcType=VARCHAR} )
+    or ( from_id = #{toId,jdbcType=VARCHAR} and to_id = #{fromId,jdbcType=VARCHAR} ) )
+    <include refid="StartTimeEndTimeSql"></include>
+    order by message_time asc
+  </select>
+  <!-- 全表通查 -->
+  <select id="selectAll" resultMap="BaseResultMap">
+    select message_id, from_id, to_id, message_time, message_content, message_content_type
+    from message
+  </select>
+</mapper>

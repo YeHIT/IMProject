@@ -1,1 +1,50 @@
+
+#创建项目schema
 CREATE SCHEMA `improject` DEFAULT CHARACTER SET utf8 ;
+
+#创建用户表
+CREATE TABLE `improject`.`user` (
+  `user_id` INT NOT NULL auto_increment,
+  `user_name` VARCHAR(45) NOT NULL,
+  `user_password` VARCHAR(45) NOT NULL,
+  `user_sex` INT NULL DEFAULT 0,
+  `user_nickname` VARCHAR(45) NULL DEFAULT '未设置用户昵称',
+  `user_birthday` DATETIME NULL,
+  `user_picture` VARCHAR(200) NULL DEFAULT 'default.jpg',
+  `user_historical_pictures` VARCHAR(200) NULL,
+  `user_email` VARCHAR(45) NULL,
+  `user_phone_number` VARCHAR(45) NULL,
+  `user_tags` VARCHAR(45) NULL,
+  `bubble_type` VARCHAR(45) NULL,
+  `historical_bubble_types` VARCHAR(300) NULL
+  PRIMARY KEY (`user_id`),
+  UNIQUE INDEX `user_name_UNIQUE` (`user_name` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+#创建消息表
+CREATE TABLE `improject`.`message` (
+  `message_id` INT NOT NULL auto_increment,
+  `from_id` VARCHAR(45) NULL,
+  `to_id` VARCHAR(45) NULL,
+  `message_time` DATETIME NULL,
+  `message_content` VARCHAR(1000) NULL,
+  `message_content_type` INT NULL,
+  PRIMARY KEY (`message_id`),
+  INDEX `fromid_toid_index` (`from_id` ASC, `to_id` ASC),
+  INDEX `message_time_index` (`message_time` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+#创建朋友表
+CREATE TABLE `improject`.`friends` (
+  `friends_id` INT NOT NULL auto_increment,
+  `friend_id` VARCHAR(45) NULL,
+  `user_id` VARCHAR(45) NULL,
+  `friend_name` VARCHAR(45) NULL,
+  `friend_type` VARCHAR(45) NULL DEFAULT '好友',
+  `friend_group_type` VARCHAR(45) NULL DEFAULT '我的好友',
+  PRIMARY KEY (`friends_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
