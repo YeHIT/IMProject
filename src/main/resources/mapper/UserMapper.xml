@@ -75,25 +75,25 @@
         #{userBirthday,jdbcType=TIMESTAMP},
       </if>
       <if test="userPicture != null and userPicture != ''.toString()">
-        #{userBirthday,jdbcType=VARCHAR},
+        #{userPicture,jdbcType=VARCHAR},
       </if>
       <if test="userHistoricalPictures != null">
-        #{userHistoricalPictures,jdbcType=VARCHAR,typeHandler=cn.yesomething.utils.StringArrayTypeHandler}
+        #{userHistoricalPictures,jdbcType=VARCHAR,typeHandler=cn.yesomething.utils.StringArrayTypeHandler},
       </if>
       <if test="userEmail != null and userEmail != ''.toString()">
-        #{userEmail,jdbcType=VARCHAR}
+        #{userEmail,jdbcType=VARCHAR},
       </if>
       <if test="userPhoneNumber != null and userPhoneNumber != ''.toString()">
-        #{userPhoneNumber,jdbcType=VARCHAR}
+        #{userPhoneNumber,jdbcType=VARCHAR},
       </if>
       <if test="userTags != null">
-        #{userTags,jdbcType=VARCHAR,typeHandler=cn.yesomething.utils.StringArrayTypeHandler}
+        #{userTags,jdbcType=VARCHAR,typeHandler=cn.yesomething.utils.StringArrayTypeHandler},
       </if>
       <if test="bubbleType != null and bubbleType != ''.toString()">
-        #{bubbleType,jdbcType=VARCHAR}
+        #{bubbleType,jdbcType=VARCHAR},
       </if>
       <if test="historicalBubbleTypes != null">
-        #{historicalBubbleTypes,jdbcType=VARCHAR,typeHandler=cn.yesomething.utils.StringArrayTypeHandler}
+        #{historicalBubbleTypes,jdbcType=VARCHAR,typeHandler=cn.yesomething.utils.StringArrayTypeHandler},
       </if>
     </trim>
   </sql>
@@ -112,25 +112,25 @@
         user_birthday = #{userBirthday,jdbcType=TIMESTAMP},
       </if>
       <if test="userPicture != null and userPicture != ''.toString()">
-        user_picture = #{userPicture,jdbcType=VARCHAR}
+        user_picture = #{userPicture,jdbcType=VARCHAR},
       </if>
       <if test="userHistoricalPictures != null">
-        user_historical_pictures = #{userHistoricalPictures,jdbcType=VARCHAR,typeHandler=cn.yesomething.utils.StringArrayTypeHandler}
+        user_historical_pictures = #{userHistoricalPictures,jdbcType=VARCHAR,typeHandler=cn.yesomething.utils.StringArrayTypeHandler},
       </if>
       <if test="userEmail != null and userEmail != ''.toString()">
-        user_email = #{userEmail,jdbcType=VARCHAR}
+        user_email = #{userEmail,jdbcType=VARCHAR},
       </if>
       <if test="userPhoneNumber != null and userPhoneNumber != ''.toString()">
-        user_phone_number = #{userPhoneNumber,jdbcType=VARCHAR}
+        user_phone_number = #{userPhoneNumber,jdbcType=VARCHAR},
       </if>
       <if test="userTags != null">
-        user_tags = #{userTags,jdbcType=VARCHAR,typeHandler=cn.yesomething.utils.StringArrayTypeHandler}
+        user_tags = #{userTags,jdbcType=VARCHAR,typeHandler=cn.yesomething.utils.StringArrayTypeHandler},
       </if>
       <if test="bubbleType != null and bubbleType != ''.toString()">
-        bubble_type = #{bubbleType,jdbcType=VARCHAR}
+        bubble_type = #{bubbleType,jdbcType=VARCHAR},
       </if>
       <if test="historicalBubbleTypes != null">
-        historical_bubble_types = #{historicalBubbleTypes,jdbcType=VARCHAR,typeHandler=cn.yesomething.utils.StringArrayTypeHandler}
+        historical_bubble_types = #{historicalBubbleTypes,jdbcType=VARCHAR,typeHandler=cn.yesomething.utils.StringArrayTypeHandler},
       </if>
     </trim>
   </sql>

@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService{
     @Resource
     UserDao userDao;
     //最大历史头像数
-    public static final int MAX_PICTURES_NUMBER = 15;
+    private static final int MAX_PICTURES_NUMBER = 15;
 
     /**
      * 用户注册
@@ -112,15 +112,24 @@ public class UserServiceImpl implements UserService{
             throw new UnknownException("上传用户头像时遇到未知错误,当前图片为"+base64pictureContent);
         }
         else{
-            String[] historicalPictures = user.getUserHistoricalPictures();
-            ArrayList<String> pictureArrayList = new ArrayList(Arrays.asList(historicalPictures));
-            //如果历史图片数大于最大数,移除第一张图片
-            if (pictureArrayList.size() > MAX_PICTURES_NUMBER) {
-                pictureArrayList.remove(0);
-            }
-            pictureArrayList.add(pictureUrl);
-            historicalPictures = pictureArrayList.toArray(historicalPictures);
+            //设置当前头像
             user.setUserPicture(pictureUrl);
+            //获取历史头像
+            String[] historicalPictures = user.getUserHistoricalPictures();
+            //历史头像为空时直接更新
+            if(historicalPictures == null){
+                historicalPictures = new String[]{pictureUrl};
+            }
+            else {
+                //历史头像非空时通过ArrayList更新
+                ArrayList<String> pictureArrayList = new ArrayList(Arrays.asList(historicalPictures));
+                //如果历史图片数大于最大数,移除第一张图片
+                if (pictureArrayList.size() > MAX_PICTURES_NUMBER) {
+                    pictureArrayList.remove(0);
+                }
+                pictureArrayList.add(pictureUrl);
+                historicalPictures = pictureArrayList.toArray(historicalPictures);
+            }
             user.setUserHistoricalPictures(historicalPictures);
             this.userUpdate(user);
             return pictureUrl;

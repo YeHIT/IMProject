@@ -53,6 +53,10 @@ public class GlobalExceptionHandler {
         else if(ex instanceof UnknownException){
             objectNode = JsonObjectValueGetter.getJsonObjectNode(600,"未知错误请稍后再试");
         }
+        else{
+            ex.printStackTrace();
+            objectNode = JsonObjectValueGetter.getJsonObjectNode(600,"未知错误请稍后再试");
+        }
         return objectNode.toString();
     }
 }
