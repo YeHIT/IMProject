@@ -21,7 +21,7 @@ public class PictureHandler {
     //文件日期格式
     private static final String FILE_TIME_FORMAT = "yyyy-MM-dd_HH-mm-ss";
     //文件格式
-    private static final String FILE_FORMAT = ".png";
+    private static final String FILE_FORMAT = "png";
     //文件路径
     private static final String USER_PICTURES_PATH = "C:/Users/SmallYe/Desktop/SoftwareProject/IMProjectUserPictures/";
     private static final String MESSAGE_PICTURES_PATH = "C:/Users/SmallYe/Desktop/SoftwareProject/IMProjectMessagePictures/";
@@ -55,7 +55,7 @@ public class PictureHandler {
             //确定图片名字
             DateFormat sdf = new SimpleDateFormat(FILE_TIME_FORMAT);
             String fileTime = sdf.format(new Date());
-            final String pictureName = fileTime + "_" + FILE_FORMAT;
+            final String pictureName = fileTime + "." + FILE_FORMAT;
             //创建文件
             File pictureFile = null;
             //根据类型选取路径
