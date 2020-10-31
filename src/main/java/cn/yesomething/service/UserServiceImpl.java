@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService{
         String pictureUrl = PictureHandler.upLoadPictureToFileFolder(userName,base64pictureContent);
         //放置图片失败
         if(pictureUrl == null){
-            throw new UnknownException("上传图片时遇到未知错误,当前图片为"+base64pictureContent);
+            throw new UnknownException("上传用户头像时遇到未知错误,当前图片为"+base64pictureContent);
         }
         else{
             String[] historicalPictures = user.getUserHistoricalPictures();
