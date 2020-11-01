@@ -12,6 +12,8 @@ public interface MessageDao {
 
     int insertMessage(Message message);
 
+    List<Message> selectMessageByFromId(@Param("fromId")String fromId);
+
     List<Message> selectByStartTimeAndEndTime(@Param("fromId")String fromId, @Param("toId")String toId,
                                               @Param("messageStartTime")Date messageStartTime,
                                               @Param("messageEndTime")Date messageEndTime);

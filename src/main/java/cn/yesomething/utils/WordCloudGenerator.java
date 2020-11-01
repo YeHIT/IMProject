@@ -30,7 +30,7 @@ public class WordCloudGenerator {
      * @param userName 用户名
      * @return 词云图片在服务器的链接
      */
-    public static TagsKeeper generateWordCloud(String [] context,String userName){
+    public static TagsKeeper generateWordCloud(ArrayList<String> context,String userName){
         //确定图片名字
         DateFormat sdf = new SimpleDateFormat(FILE_TIME_FORMAT);
         String fileTime = sdf.format(new Date());
@@ -45,8 +45,8 @@ public class WordCloudGenerator {
         }
         //拼接聊天记录
         String text = null;
-        for(int i=0;i<context.length;i++){
-            text = text + context[i];
+        for(int i=0;i<context.size();i++){
+            text = text + context.get(i);
         }
         ArrayList<String> tagsList = new ArrayList();
         // 执行py文件

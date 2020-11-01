@@ -197,6 +197,14 @@
         </dependency>
         <!-- TimSDK生成UserSig需要的依赖 -->
 
+        <!-- 消息解密需要的包 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.5</version>
+        </dependency>
+        <!-- 消息解密需要的包 -->
+
     </dependencies>
     
 </project>

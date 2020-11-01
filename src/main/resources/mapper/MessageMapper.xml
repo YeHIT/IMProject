@@ -48,6 +48,13 @@
     <include refid="StartTimeEndTimeSql"></include>
     order by message_time asc
   </select>
+  <!-- 查询某人发出的全部消息 -->
+  <select id="selectMessageByFromId" resultMap="BaseResultMap">
+    select message_id, from_id, to_id, message_time, message_content, message_content_type
+    from message
+    where from_id = #{fromId,jdbcType=VARCHAR}
+    order by message_time asc
+  </select>
   <!-- 全表通查 -->
   <select id="selectAll" resultMap="BaseResultMap">
     select message_id, from_id, to_id, message_time, message_content, message_content_type

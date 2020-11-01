@@ -1,20 +1,29 @@
 package cn.yesomething.service;
 
 import cn.yesomething.Exception.*;
+import cn.yesomething.dao.MessageDao;
 import cn.yesomething.dao.UserDao;
+import cn.yesomething.domain.Message;
+import cn.yesomething.domain.TagsKeeper;
 import cn.yesomething.domain.User;
+import cn.yesomething.utils.MessageDecode;
 import cn.yesomething.utils.PictureHandler;
+import cn.yesomething.utils.WordCloudGenerator;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService{
 
     @Resource
     UserDao userDao;
+    @Resource
+    MessageDao messageDao;
+
     //最大历史头像数
     private static final int MAX_PICTURES_NUMBER = 15;
 
@@ -135,4 +144,29 @@ public class UserServiceImpl implements UserService{
             return pictureUrl;
         }
     }
+
+    /**
+     * 生成用户词云
+     * @param userName 需要生成词云的用户名
+     * @return 装载着词云图片地址及用户关键词的对象
+     */
+    public TagsKeeper userWordCloudGenerate(String userName){
+        //获取发送的全部信息
+        List<Message> messageList = messageDao.selectMessageByFromId(userName);
+        ArrayList<String> messageContentList = new ArrayList();
+        //判断是否可以生成词云
+        if(messageList.size() == 0){
+            throw new NoEnoughMessageException(userName + "的消息不足");
+        }
+        //使用文本信息生成词云
+        for (Message message: messageList) {
+            if(message.getMessageContentType() == MessageServiceImpl.TEXT_MESSAGE){
+                String trueMessageContent = MessageDecode.decodeMessage(message.getMessageContent());
+                messageContentList.add(trueMessageContent);
+            }
+        }
+        TagsKeeper tagsKeeper = WordCloudGenerator.generateWordCloud(messageContentList,userName);
+        return tagsKeeper;
+    }
+
 }
