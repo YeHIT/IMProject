@@ -16,7 +16,7 @@ CREATE TABLE `improject`.`user` (
   `user_phone_number` VARCHAR(45) NULL,
   `user_tags` VARCHAR(45) NULL,
   `bubble_type` VARCHAR(45) NULL,
-  `historical_bubble_types` VARCHAR(300) NULL
+  `historical_bubble_types` VARCHAR(300) NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX `user_name_UNIQUE` (`user_name` ASC))
 ENGINE = InnoDB
@@ -31,6 +31,9 @@ CREATE TABLE `improject`.`message` (
   `message_time` DATETIME NULL,
   `message_content` VARCHAR(1000) NULL,
   `message_content_type` INT NULL,
+  `message_emotional_score` DOUBLE NULL,
+  `has_violent_info` INT NULL,
+  `processed_content` VARCHAR(1000) NULL,
   PRIMARY KEY (`message_id`),
   INDEX `fromid_toid_index` (`from_id` ASC, `to_id` ASC),
   INDEX `message_time_index` (`message_time` ASC))

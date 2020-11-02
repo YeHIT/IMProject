@@ -23,7 +23,6 @@ public class JsonObjectValueGetter {
         }
     }
 
-
     /**
      * 创建ObjectNode并添加状态码与错误信息
      * @param responseCode 当前操作的状态码 200为成功
@@ -68,6 +67,4 @@ public class JsonObjectValueGetter {
         }
         return null;
     }
-
-
 }

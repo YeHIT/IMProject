@@ -1,9 +1,7 @@
 package cn.yesomething.utils;
 
 import cn.yesomething.Exception.PictureDecodeException;
-import com.sun.org.apache.xml.internal.security.Init;
-import com.sun.org.apache.xml.internal.security.exceptions.Base64DecodingException;
-import com.sun.org.apache.xml.internal.security.utils.Base64;
+import java.util.Base64;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -23,6 +21,7 @@ public class PictureHandler {
     //文件格式
     private static final String FILE_FORMAT = "png";
     //文件路径
+    //todo 放到服务器上时需要修改
     private static final String USER_PICTURES_PATH = "C:/Users/SmallYe/Desktop/SoftwareProject/IMProjectUserPictures/";
     private static final String MESSAGE_PICTURES_PATH = "C:/Users/SmallYe/Desktop/SoftwareProject/IMProjectMessagePictures/";
     //图片文件夹位置
@@ -48,8 +47,7 @@ public class PictureHandler {
      */
     public static String upLoadPictureToFileFolder(String userName,String base64pictureContent,int pictureType){
         try {
-            Init.init();
-            byte[] pictureBytes = Base64.decode(base64pictureContent);
+            byte[] pictureBytes = Base64.getMimeDecoder().decode(base64pictureContent);
             ByteArrayInputStream pictureByteArrayInputStream = new ByteArrayInputStream(pictureBytes);
             BufferedImage pictureBufferedImage = ImageIO.read(pictureByteArrayInputStream);
             //确定图片名字
@@ -82,7 +80,7 @@ public class PictureHandler {
                 }
                 return specialPictureUrl;
             }
-        } catch (Base64DecodingException | IOException e) {
+        } catch (IOException e) {
             throw new PictureDecodeException("图片编码错误");
         }
         return null;

@@ -13,13 +13,13 @@ public class EmotionAnalyzer {
 
     /**
      * 传入信息判断该信息的情绪指数
-     * @param s 需要传入的信息
+     * @param messageContent 需要传入的信息
      * @return 当前信息的情绪指数 -表示负面情绪
      */
-    public static double Analyze(String s){
+    public static double Analyze(String messageContent){
         Double result = 0.0;
         try {
-            String[] args = new String[] { "python", PYTHON_PATH, s };
+            String[] args = new String[] { "python", PYTHON_PATH, messageContent };
             Process proc = Runtime.getRuntime().exec(args);// 执行py文件
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
             String line = null;

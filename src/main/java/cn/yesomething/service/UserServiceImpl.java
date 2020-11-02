@@ -6,7 +6,7 @@ import cn.yesomething.dao.UserDao;
 import cn.yesomething.domain.Message;
 import cn.yesomething.domain.TagsKeeper;
 import cn.yesomething.domain.User;
-import cn.yesomething.utils.MessageDecode;
+import cn.yesomething.utils.MessageHandler;
 import cn.yesomething.utils.PictureHandler;
 import cn.yesomething.utils.WordCloudGenerator;
 import org.springframework.stereotype.Service;
@@ -161,12 +161,11 @@ public class UserServiceImpl implements UserService{
         //使用文本信息生成词云
         for (Message message: messageList) {
             if(message.getMessageContentType() == MessageServiceImpl.TEXT_MESSAGE){
-                String trueMessageContent = MessageDecode.decodeMessage(message.getMessageContent());
+                String trueMessageContent = MessageHandler.decodeMessage(message.getMessageContent());
                 messageContentList.add(trueMessageContent);
             }
         }
         TagsKeeper tagsKeeper = WordCloudGenerator.generateWordCloud(messageContentList,userName);
         return tagsKeeper;
     }
-
 }

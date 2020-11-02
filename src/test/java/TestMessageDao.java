@@ -30,7 +30,15 @@ public class TestMessageDao {
     public void testInsertMessage(){
         String fromId = "11";
         String toId = "22" ;
-        Message message = new Message(fromId,toId,new Date(),"hello2",1);
+        Message message = new Message();
+        message.setFromId("11");
+        message.setToId("22");
+        message.setMessageTime(new Date());
+        message.setMessageContent("hi");
+        message.setMessageContentType(null);
+        message.setMessageEmotionalScore(0.5);
+        message.setProcessedContent(null);
+        message.setHasViolentInfo(0);
         System.out.println(messageDao.insertMessage(message));
     }
 }

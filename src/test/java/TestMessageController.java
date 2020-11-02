@@ -24,7 +24,15 @@ public class TestMessageController {
 
     @Test
     public void testInsertMessage(){
-        Message message = new Message("11","22",new Date(),"hi",null);
+        Message message = new Message();
+        message.setFromId("11");
+        message.setToId("22");
+        message.setMessageTime(new Date());
+        message.setMessageContent("法轮功");
+        message.setMessageContentType(null);
+        message.setMessageEmotionalScore(0.5);
+        message.setProcessedContent(null);
+        message.setHasViolentInfo(0);
         String result = messageController.insertMessage(message);
         System.out.println(result);
     }

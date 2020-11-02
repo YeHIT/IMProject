@@ -20,6 +20,7 @@ public class WordCloudGenerator {
     //文件格式
     private static final String FILE_FORMAT = "png";
     //图片输出路径
+    //todo 放到服务器上时需要修改
     public static final String IMG_PATH = "C:/Users/SmallYe/Desktop/SoftwareProject/IMProjectWordCloudPictures/";
     //词云在服务器的地址
     private static final String WORD_CLOUD_PICTURE_URL = "http://10.0.2.2:8080/IMProjectWordCloudPictures/";

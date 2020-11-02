@@ -2,7 +2,7 @@ package cn.yesomething.utils;
 
 import java.util.regex.*;
 
-class YellowViolenceKiller {
+public class YellowViolenceKiller {
     //根据关键词生成的正则表达式
     private static String regexp = "裸舞视|口射|原味内衣|阴道|蜜液|自慰|马勒|狼友|阴唇|轮功|falungong|flg|粉嫩"+
                                     "|zi杀|玉乳|电鸡|潮吹|迷药|美逼|爽片|奸情|迷藥|中年美妇|裸露|摸奶|成人dv|金麟岂是池中物"+
@@ -46,14 +46,24 @@ class YellowViolenceKiller {
                                     "|流淫|电话定位器|处男|退dang|99bb|荡女|九评|傻逼|一夜欢|肉棒|枪决女犯|乳沟|淫电影|龟头|性交视频|夏川纯"+
                                     "|淫荡美女|插比|真善忍|陰道|suicide|迷昏口|成人片|性感少|乱伦|色区|爽死我了|干逼|伪火|全裸|文做|观音法门|春药"+
                                     "|法一轮一功|售健卫|狗日的|淫兽学|incest|松岛枫|yin荡|法轮功|乳罩|乳峰|乳肉";
-    //输入字符串s，当且仅当含有关键词时返回True
-    public static boolean judge(String s){
+
+    /**
+     * 判断消息是否含有黄暴信息
+     * @param messageContext 需要判断的消息
+     * @return 含有黄暴信息返回true
+     */
+    public static boolean judge(String messageContext){
         Pattern pattern = Pattern.compile(regexp);
-        Matcher matcher = pattern.matcher(s);
+        Matcher matcher = pattern.matcher(messageContext);
         return matcher.find();
     }
-    //输入字符串s，将所有关键词替换为星号
-    public static String replace(String s){
-        return s.replaceAll(regexp,"*");
+
+    /**
+     * 判断消息是否含有黄暴信息
+     * @param messageContext 需要判断的消息
+     * @return 将黄暴信息转化为*符号
+     */
+    public static String replace(String messageContext){
+        return messageContext.replaceAll(regexp,"*");
     }
 }

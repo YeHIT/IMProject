@@ -1,7 +1,5 @@
 package cn.yesomething.utils;
 
-import java.lang.reflect.Array;
-
 //用于字符串处理
 public class StringHelper {
     /**
@@ -38,5 +36,4 @@ public class StringHelper {
         return sb.toString();
 
     }
-
 }
