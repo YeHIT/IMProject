@@ -58,8 +58,8 @@ public class WordCloudGenerator {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(proc.getInputStream(),"GBK"));
             String tag = bufferedReader.readLine();
             while(tag != null){
-                tag = bufferedReader.readLine();
                 tagsList.add(tag);
+                tag = bufferedReader.readLine();
             }
             proc.waitFor();
         }catch (Exception e){
