@@ -15,15 +15,25 @@ public class Message {
 
     private Integer messageContentType;
 
+    private Double messageEmotionalScore;
+
+    private String processedContent;
+
+    private int hasViolentInfo;
+
     public Message() {
     }
 
-    public Message(String fromId, String toId, Date messageTime, String messageContent, Integer messageContentType) {
+    public Message(Integer messageId, String fromId, String toId, Date messageTime, String messageContent, Integer messageContentType, Double messageEmotionalScore, String processedContent, int hasViolentInfo) {
+        this.messageId = messageId;
         this.fromId = fromId;
         this.toId = toId;
         this.messageTime = messageTime;
         this.messageContent = messageContent;
         this.messageContentType = messageContentType;
+        this.messageEmotionalScore = messageEmotionalScore;
+        this.processedContent = processedContent;
+        this.hasViolentInfo = hasViolentInfo;
     }
 
     @Override
@@ -35,6 +45,9 @@ public class Message {
                 ", messageTime=" + messageTime +
                 ", messageContent='" + messageContent + '\'' +
                 ", messageContentType=" + messageContentType +
+                ", messageEmotionalScore=" + messageEmotionalScore +
+                ", processedContent='" + processedContent + '\'' +
+                ", hasViolentInfo=" + hasViolentInfo +
                 '}';
     }
 
@@ -84,5 +97,29 @@ public class Message {
 
     public void setMessageContentType(Integer messageContentType) {
         this.messageContentType = messageContentType;
+    }
+
+    public Double getMessageEmotionalScore() {
+        return messageEmotionalScore;
+    }
+
+    public void setMessageEmotionalScore(Double messageEmotionalScore) {
+        this.messageEmotionalScore = messageEmotionalScore;
+    }
+
+    public String getProcessedContent() {
+        return processedContent;
+    }
+
+    public void setProcessedContent(String processedContent) {
+        this.processedContent = processedContent;
+    }
+
+    public int getHasViolentInfo() {
+        return hasViolentInfo;
+    }
+
+    public void setHasViolentInfo(int hasViolentInfo) {
+        this.hasViolentInfo = hasViolentInfo;
     }
 }

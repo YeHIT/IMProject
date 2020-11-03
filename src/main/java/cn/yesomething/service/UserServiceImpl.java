@@ -1,22 +1,31 @@
 package cn.yesomething.service;
 
 import cn.yesomething.Exception.*;
+import cn.yesomething.dao.MessageDao;
 import cn.yesomething.dao.UserDao;
+import cn.yesomething.domain.Message;
+import cn.yesomething.domain.TagsKeeper;
 import cn.yesomething.domain.User;
+import cn.yesomething.utils.MessageHandler;
 import cn.yesomething.utils.PictureHandler;
+import cn.yesomething.utils.WordCloudGenerator;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService{
 
     @Resource
     UserDao userDao;
+    @Resource
+    MessageDao messageDao;
+
     //最大历史头像数
-    public static final int MAX_PICTURES_NUMBER = 15;
+    private static final int MAX_PICTURES_NUMBER = 15;
 
     /**
      * 用户注册
@@ -109,21 +118,54 @@ public class UserServiceImpl implements UserService{
         String pictureUrl = PictureHandler.upLoadPictureToFileFolder(userName,base64pictureContent);
         //放置图片失败
         if(pictureUrl == null){
-            throw new UnknownException("上传图片时遇到未知错误,当前图片为"+base64pictureContent);
+            throw new UnknownException("上传用户头像时遇到未知错误,当前图片为"+base64pictureContent);
         }
         else{
-            String[] historicalPictures = user.getUserHistoricalPictures();
-            ArrayList<String> pictureArrayList = new ArrayList(Arrays.asList(historicalPictures));
-            //如果历史图片数大于最大数,移除第一张图片
-            if (pictureArrayList.size() > MAX_PICTURES_NUMBER) {
-                pictureArrayList.remove(0);
-            }
-            pictureArrayList.add(pictureUrl);
-            historicalPictures = pictureArrayList.toArray(historicalPictures);
+            //设置当前头像
             user.setUserPicture(pictureUrl);
+            //获取历史头像
+            String[] historicalPictures = user.getUserHistoricalPictures();
+            //历史头像为空时直接更新
+            if(historicalPictures == null){
+                historicalPictures = new String[]{pictureUrl};
+            }
+            else {
+                //历史头像非空时通过ArrayList更新
+                ArrayList<String> pictureArrayList = new ArrayList(Arrays.asList(historicalPictures));
+                //如果历史图片数大于最大数,移除第一张图片
+                if (pictureArrayList.size() > MAX_PICTURES_NUMBER) {
+                    pictureArrayList.remove(0);
+                }
+                pictureArrayList.add(pictureUrl);
+                historicalPictures = pictureArrayList.toArray(historicalPictures);
+            }
             user.setUserHistoricalPictures(historicalPictures);
             this.userUpdate(user);
             return pictureUrl;
         }
+    }
+
+    /**
+     * 生成用户词云
+     * @param userName 需要生成词云的用户名
+     * @return 装载着词云图片地址及用户关键词的对象
+     */
+    public TagsKeeper userWordCloudGenerate(String userName){
+        //获取发送的全部信息
+        List<Message> messageList = messageDao.selectMessageByFromId(userName);
+        ArrayList<String> messageContentList = new ArrayList();
+        //判断是否可以生成词云
+        if(messageList.size() == 0){
+            throw new NoEnoughMessageException(userName + "的消息不足");
+        }
+        //使用文本信息生成词云
+        for (Message message: messageList) {
+            if(message.getMessageContentType() == MessageServiceImpl.TEXT_MESSAGE){
+                String trueMessageContent = MessageHandler.decodeMessage(message.getMessageContent());
+                messageContentList.add(trueMessageContent);
+            }
+        }
+        TagsKeeper tagsKeeper = WordCloudGenerator.generateWordCloud(messageContentList,userName);
+        return tagsKeeper;
     }
 }

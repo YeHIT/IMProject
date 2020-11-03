@@ -29,28 +29,42 @@
     <result column="message_time" jdbcType="TIMESTAMP" property="messageTime" />
     <result column="message_content" jdbcType="VARCHAR" property="messageContent" />
     <result column="message_content_type" jdbcType="INTEGER" property="messageContentType" />
+    <result column="message_emotional_score" jdbcType="DOUBLE" property="messageEmotionalScore" />
+    <result column="has_violent_info" jdbcType="INTEGER" property="hasViolentInfo" />
+    <result column="processed_content" jdbcType="VARCHAR" property="processedContent" />
   </resultMap>
   <!-- 插入消息 -->
   <insert id="insertMessage" parameterType="cn.yesomething.domain.Message">
-    insert into message (from_id, to_id,
-      message_time, message_content, message_content_type
+    insert into message (from_id, to_id,message_time,message_content,
+     message_content_type,message_emotional_score,processed_content,has_violent_info
       )
     values (#{fromId,jdbcType=INTEGER}, #{toId,jdbcType=INTEGER}, #{messageTime,jdbcType=TIMESTAMP},
-     #{messageContent,jdbcType=VARCHAR}, <include refid="MessageTypeSql"></include>
+     #{messageContent,jdbcType=VARCHAR}, <include refid="MessageTypeSql"></include>,
+     #{messageEmotionalScore,jdbcType=DOUBLE},#{processedContent,jdbcType=VARCHAR},#{hasViolentInfo,jdbcType=INTEGER}
       )
   </insert>
   <!-- 按起止时间查询两人间的消息 -->
   <select id="selectByStartTimeAndEndTime" resultMap="BaseResultMap">
-    select message_id, from_id, to_id, message_time, message_content, message_content_type
+    select message_id, from_id, to_id, message_time, message_content, message_content_type,
+    message_emotional_score,processed_content,has_violent_info
     from message
     where ( ( from_id = #{fromId,jdbcType=VARCHAR} and to_id = #{toId,jdbcType=VARCHAR} )
     or ( from_id = #{toId,jdbcType=VARCHAR} and to_id = #{fromId,jdbcType=VARCHAR} ) )
     <include refid="StartTimeEndTimeSql"></include>
     order by message_time asc
   </select>
+  <!-- 查询某人发出的全部消息 -->
+  <select id="selectMessageByFromId" resultMap="BaseResultMap">
+    select message_id, from_id, to_id, message_time, message_content, message_content_type,
+    message_emotional_score,processed_content,has_violent_info
+    from message
+    where from_id = #{fromId,jdbcType=VARCHAR}
+    order by message_time asc
+  </select>
   <!-- 全表通查 -->
   <select id="selectAll" resultMap="BaseResultMap">
-    select message_id, from_id, to_id, message_time, message_content, message_content_type
+    select message_id, from_id, to_id, message_time, message_content, message_content_type,
+    message_emotional_score,processed_content,has_violent_info
     from message
   </select>
 </mapper>

@@ -1,5 +1,6 @@
 package cn.yesomething.controller;
 
+import cn.yesomething.domain.TagsKeeper;
 import cn.yesomething.domain.User;
 import cn.yesomething.service.UserServiceImpl;
 import cn.yesomething.utils.JsonObjectValueGetter;
@@ -68,6 +69,18 @@ public class UserController {
         ObjectNode objectNode = null;
         objectNode = JsonObjectValueGetter.getJsonObjectNode(200);
         objectNode.putPOJO("userPicture",resultUrl);
+        return objectNode.toString();
+    }
+
+    @ResponseBody
+    @RequestMapping("user_word_cloud_generate")
+    public String userWordCloudGenerate(@RequestBody User user){
+        String userName = user.getUserName();
+        TagsKeeper tagsKeeper = userService.userWordCloudGenerate(userName);
+        ObjectNode objectNode = null;
+        objectNode = JsonObjectValueGetter.getJsonObjectNode(200);
+        objectNode.putPOJO("wordCloudPicture",tagsKeeper.getWordCloudPictureUrl());
+        objectNode.putPOJO("tags",tagsKeeper.getTags());
         return objectNode.toString();
     }
 }

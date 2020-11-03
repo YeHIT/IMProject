@@ -34,8 +34,8 @@ public class GeneralServiceImpl implements GeneralService{
 
     /**
      * 用于生成userSig
-     * @param userId 需要产生usersig的ID
-     * @return 返回产生的usersig
+     * @param userId 需要产生userSig的ID
+     * @return 返回产生的userSig
      */
     @Override
     public String generateUserSig(String userId) {

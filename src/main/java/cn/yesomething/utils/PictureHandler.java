@@ -1,9 +1,7 @@
 package cn.yesomething.utils;
 
 import cn.yesomething.Exception.PictureDecodeException;
-import com.sun.org.apache.xml.internal.security.Init;
-import com.sun.org.apache.xml.internal.security.exceptions.Base64DecodingException;
-import com.sun.org.apache.xml.internal.security.utils.Base64;
+import java.util.Base64;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -15,14 +13,20 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class PictureHandler {
+    //图片类型
+    public static final int USER_PICTURE = 0;
+    public static final int MESSAGE_PICTURE = 1;
     //文件日期格式
-    private static String fileTimeFormat = "yyyy-MM-dd_HH-mm-ss";
+    private static final String FILE_TIME_FORMAT = "yyyy-MM-dd_HH-mm-ss";
     //文件格式
-    private static String fileFormat = "png";
+    private static final String FILE_FORMAT = "png";
     //文件路径
-    public static final String filePathName = "C:/Users/SmallYe/Desktop/SoftwareProject/pictures/";
+    //todo 放到服务器上时需要修改
+    private static final String USER_PICTURES_PATH = "C:/Users/SmallYe/Desktop/SoftwareProject/IMProjectUserPictures/";
+    private static final String MESSAGE_PICTURES_PATH = "C:/Users/SmallYe/Desktop/SoftwareProject/IMProjectMessagePictures/";
     //图片文件夹位置
-    public static final String picturesUrl = "http://10.0.2.2:8080/IMProjectPictures/";
+    private static final String USER_PICTURE_URL = "http://10.0.2.2:8080/IMProjectUserPictures/";
+    private static final String MESSAGE_PICTURE_URL = "http://10.0.2.2:8080/IMProjectMessagePictures/";
 
     /**
      * 将前端拿到的图片放入服务器的文件中
@@ -31,28 +35,52 @@ public class PictureHandler {
      * @return 图片在服务器的链接
      */
     public static String upLoadPictureToFileFolder(String userName,String base64pictureContent){
+        return upLoadPictureToFileFolder(userName,base64pictureContent,USER_PICTURE);
+    }
+
+    /**
+     * 将前端拿到的图片放入服务器的文件中
+     * @param userName 用户名
+     * @param base64pictureContent 图片内容
+     * @param pictureType 图片类型(用户头像/消息图片)
+     * @return 图片在服务器的链接
+     */
+    public static String upLoadPictureToFileFolder(String userName,String base64pictureContent,int pictureType){
         try {
-            Init.init();
-            byte[] pictureBytes = Base64.decode(base64pictureContent);
-            ByteArrayInputStream bais = new ByteArrayInputStream(pictureBytes);
-            BufferedImage bis = ImageIO.read(bais);
-            DateFormat sdf = new SimpleDateFormat(fileTimeFormat);
+            byte[] pictureBytes = Base64.getMimeDecoder().decode(base64pictureContent);
+            ByteArrayInputStream pictureByteArrayInputStream = new ByteArrayInputStream(pictureBytes);
+            BufferedImage pictureBufferedImage = ImageIO.read(pictureByteArrayInputStream);
+            //确定图片名字
+            DateFormat sdf = new SimpleDateFormat(FILE_TIME_FORMAT);
             String fileTime = sdf.format(new Date());
-            final String pictureName = fileTime + "_" + "." + fileFormat;
-            File f = new File(filePathName
-                    + userName + "/" + pictureName);
+            final String pictureName = fileTime + "." + FILE_FORMAT;
+            //创建文件
+            File pictureFile = null;
+            //根据类型选取路径
+            if(pictureType == USER_PICTURE){
+                pictureFile = new File(USER_PICTURES_PATH + userName + "/" + pictureName);
+            }
+            else if(pictureType == MESSAGE_PICTURE){
+                pictureFile = new File(MESSAGE_PICTURES_PATH + userName + "/" + pictureName);
+            }
             boolean canFinish = false;
             //文件不存在时创建文件
-            if (!f.exists()) {
-                f.mkdirs();
+            if (!pictureFile.exists()) {
+                pictureFile.mkdirs();
             }
-            canFinish = ImageIO.write(bis, fileFormat, f);
-            //成功存储
+            //判断是否成功存储
+            canFinish = ImageIO.write(pictureBufferedImage, FILE_FORMAT, pictureFile);
             if (canFinish) {
-                String specialPictureUrl = picturesUrl + userName + "/" + pictureName;
+                String specialPictureUrl = null;
+                if(pictureType == USER_PICTURE){
+                    specialPictureUrl = USER_PICTURE_URL + userName + "/" + pictureName;
+                }
+                else if(pictureType == MESSAGE_PICTURE){
+                    specialPictureUrl = MESSAGE_PICTURE_URL + userName + "/" + pictureName;
+                }
                 return specialPictureUrl;
             }
-        } catch (Base64DecodingException | IOException e) {
+        } catch (IOException e) {
             throw new PictureDecodeException("图片编码错误");
         }
         return null;

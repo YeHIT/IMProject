@@ -50,7 +50,14 @@ public class GlobalExceptionHandler {
         else if(ex instanceof NoFriendListException){
             objectNode = JsonObjectValueGetter.getJsonObjectNode(511,"未和任何人有好友关系");
         }
+        else if(ex instanceof NoEnoughMessageException){
+            objectNode = JsonObjectValueGetter.getJsonObjectNode(512,"消息不足,无法生成词云");
+        }
         else if(ex instanceof UnknownException){
+            objectNode = JsonObjectValueGetter.getJsonObjectNode(600,"未知错误请稍后再试");
+        }
+        else{
+            ex.printStackTrace();
             objectNode = JsonObjectValueGetter.getJsonObjectNode(600,"未知错误请稍后再试");
         }
         return objectNode.toString();

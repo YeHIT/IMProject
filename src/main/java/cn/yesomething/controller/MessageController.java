@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -41,8 +38,9 @@ public class MessageController {
     @RequestMapping("message_insert")
     public String insertMessage(@RequestBody Message message) {
         ObjectNode objectNode = null;
-        messageService.insertMessage(message);
+        Message resultMessage = messageService.insertMessage(message);
         objectNode = JsonObjectValueGetter.getJsonObjectNode(200);
+        objectNode.putPOJO("message",resultMessage);
         return objectNode.toString();
     }
 }

@@ -20,7 +20,7 @@ public interface MessageService {
     /**
      * 插入消息
      * @param message 要插入的消息
+     * @return 刚刚插入的消息
      */
-    void insertMessage(Message message);
-
+    Message insertMessage(Message message);
 }

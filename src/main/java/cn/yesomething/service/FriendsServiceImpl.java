@@ -6,7 +6,6 @@ import cn.yesomething.Exception.NoFriendListException;
 import cn.yesomething.Exception.NoFriendRelationException;
 import cn.yesomething.dao.FriendsDao;
 import cn.yesomething.domain.Friends;
-import cn.yesomething.utils.JsonObjectValueGetter;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

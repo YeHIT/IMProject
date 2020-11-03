@@ -46,4 +46,12 @@ public class TestUserController {
         String pictureJson = "{\"userName\":\"denwade\",\"base64String\":\"xx\"}";
         userController.userPictureUpload(pictureJson);
     }
+
+    @Test
+    public void testUserWordCloudGenerate(){
+        User user = new User();
+        user.setUserName("denwade");
+        String result = userController.userWordCloudGenerate(user);
+        System.out.println(result);
+    }
 }

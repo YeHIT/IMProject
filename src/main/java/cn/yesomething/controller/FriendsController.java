@@ -26,6 +26,7 @@ public class FriendsController {
         objectNode = JsonObjectValueGetter.getJsonObjectNode(200);
         return objectNode.toString();
     }
+
     @ResponseBody
     @RequestMapping("friends_update")
     public String updateFriends(@RequestBody Friends friends){

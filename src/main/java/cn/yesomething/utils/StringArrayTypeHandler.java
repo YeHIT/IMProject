@@ -56,5 +56,4 @@ public class StringArrayTypeHandler extends BaseTypeHandler<String[]> {
         }
         return null;
     }
-
 }
