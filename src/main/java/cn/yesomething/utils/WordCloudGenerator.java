@@ -11,10 +11,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class WordCloudGenerator {
-    //Python脚本的路径
-    private static final String PYTHON_PATH = "src/main/resources/pythonScript/word_cloud.py";
-    //字体文件的路径
-    private static final String FONT_PATH = "src/main/resources/pythonScript/SourceHanSerifK-Light.otf";
+    //todo 使用绝对路径 Python脚本的路径
+    private static final String PYTHON_PATH = "C:/Users/SmallYe/Desktop/github/SoftwareProject/IMProject" +
+            "/src/main/resources/pythonScript/word_cloud.py";
+    //todo 使用绝对路径 字体文件的路径
+    private static final String FONT_PATH = "C:/Users/SmallYe/Desktop/github/SoftwareProject/IMProject" +
+            "/src/main/resources/pythonScript/SourceHanSerifK-Light.otf";
     //文件日期格式
     private static final String FILE_TIME_FORMAT = "yyyy-MM-dd_HH-mm-ss";
     //文件格式

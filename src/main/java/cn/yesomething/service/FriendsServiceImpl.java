@@ -24,8 +24,11 @@ public class FriendsServiceImpl implements FriendsService{
     @Override
     public void addFriend(Friends friends) {
         Friends resultFriends = friendsDao.selectByEachOther(friends);
+        Friends antiFriends = new Friends(friends.getUserId(),friends.getFriendId(),
+                friends.getUserId(),friends.getFriendType(),friends.getFriendGroupType());
         if(resultFriends == null){
             friendsDao.insertFriends(friends);
+            friendsDao.insertFriends(antiFriends);
         }
         else {        //二者已经是好友了
             throw new FriendRepeatException(friends.getUserId() + "和" + friends.getFriendId() + "已为好友关系");
